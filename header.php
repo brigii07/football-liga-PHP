@@ -13,7 +13,7 @@ session_start();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </head>
 
-<body style="background-color:#838996;">
+<body style="background-color:#BCC6CC;">
     <nav class="navbar navbar-expand-lg bg-dark">
         <div class="container-fluid bg-light">
             <nav class="navbar navbar-light bg-light">
@@ -35,9 +35,6 @@ session_start();
                     <li class="nav-item">
                         <a class="nav-link" href="jelenleg.php">Jelenleg zajló meccsek</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Webshopunk</a>
-                    </li>
 
                     <?php
                     if (isset($_SESSION['user'])) {
@@ -51,25 +48,26 @@ session_start();
                     ?>
 
                 </ul>
-
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                    <div class="offcanvas-header">
+
+                <div class="offcanvas-header">
                         <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body">
-                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    </div>    
+                <div class="offcanvas-body">
+                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-5">
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Dropdown
+                                    Menü
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                                    <li><a class="dropdown-item" href="login_form.php">Bejelentkezés</a></li>
+                                    <li><a class="dropdown-item" href="register_form.php">Regisztráció</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    <li><a class="dropdown-item" href="forrasok.php">Források</a></li>
+                                    <li><a class="dropdown-item disabled" href="#">Webshopunk</a></li>
                                 </ul>
                             </li>
                         </ul>

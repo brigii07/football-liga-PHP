@@ -6,12 +6,15 @@ if (isset($_POST['submit'])) {
    
     $username = mysqli_real_escape_string($connection, $_POST['username']);
     $password = mysqli_real_escape_string($connection, $_POST['password']);
+    $email = mysqli_real_escape_string($connection, $_POST['email']);
 
     $query = "SELECT * FROM registered WHERE username = '$username'";
-    $result = mysqli_query($connection, $query);
+    $query1 = "SELECT * FROM registered WHERE email = '$email'";
+    $result = mysqli_query($connection, $query, $query1);
     
     if (mysqli_num_rows($result) != 1) {
         echo 'No user found with this username';
+        echo 'No user found with this email';
     }
     else {
         $user = mysqli_fetch_assoc($result);
