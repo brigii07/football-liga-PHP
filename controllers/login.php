@@ -12,7 +12,7 @@ if (isset($_POST['submit'])) {
     $query1 = "SELECT * FROM registered WHERE email = '$email'";
     $result = mysqli_query($connection, $query, $query1);
     
-    if (mysqli_num_rows($result) != 1) {
+    if (mysqli_num_rows($result) != 2) {
         echo 'No user found with this username';
         echo 'No user found with this email';
     }
