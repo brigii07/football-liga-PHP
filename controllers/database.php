@@ -2,6 +2,6 @@
 $serverAddress = "localhost";
 $username = "root";
 $password = "";
-$databaseName = "projekt";
+$databaseName = "football_projekt";
 
 $connection = mysqli_connect($serverAddress, $username, $password, $databaseName);
