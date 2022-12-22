@@ -50,19 +50,40 @@ session_start();
                 </ul>
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
 
-                <div class="offcanvas-header">
+                    <div class="offcanvas-header">
                         <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>    
-                <div class="offcanvas-body">
+                    </div>
+                    <div class="offcanvas-body">
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-5">
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Menü
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="login_form.php">Bejelentkezés</a></li>
-                                    <li><a class="dropdown-item" href="register_form.php">Regisztráció</a></li>
+                                    <?php
+                                    if (isset($_SESSION['user'])) {
+                                       
+                                       echo '<li><a class="dropdown-item" href="user.php">' .$_SESSION["user"]["username"]. '</a></li>';
+                                    } 
+                                    else {
+                                    }
+
+                                    if (isset($_SESSION['user'])) {
+                                        echo '<form class="d-flex" action="controllers/logout.php">
+                <li><a class="dropdown-item" href="controllers/logout.php">Kijelentkezés</a></li>
+                  </form>';
+                                    } else {
+                                        echo '<form class="d-flex" method="POST" action="controllers/login.php">
+                <li><a class="dropdown-item" href="login_form.php">Bejelentkezés</a></li>
+                     </form>
+             <form class="d-flex" action="register_form.php">
+             <li><a class="dropdown-item" href="register_form.php">Regisztráció</a></li>
+            </form>';
+                                    }
+
+                                    ?>
+
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
@@ -73,7 +94,6 @@ session_start();
                         </ul>
                     </div>
                 </div>
-
 
             </div>
 
