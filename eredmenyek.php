@@ -4,18 +4,52 @@
 $serverAddress = 'localhost';
 $username = 'root';
 $password = '';
-$databaseName = 'projekt';
+$databaseName = 'football_projekt';
 
 $connection = mysqli_connect($serverAddress, $username, $password, $databaseName);
 
 
 
-$sql_query = 'SELECT * FROM csapatok';
+$sql_query = 'SELECT * FROM eredmenyek';
 $result = mysqli_query($connection, $sql_query);
 
 ?>
+<br>
+<section style="background-color: #838996;">
+    <div class="container" style="margin-top: 10px;">
+
+        <div class="row" style="min-height: 100vh; ">
+            <div class="col-12">
+                <table class="table table-bordered table-hover table-dark text-center">
+                    <thead>
+                        <tr>
+                            <th scope="col">Hazai Csapat</th>
+                            <th scope="col">Vendég Csapat</th>
+                            <th scope="col">Végeredmény</th>
+                            <th scope="col">Időpont</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $sql = $connection->query('SELECT * FROM eredmenyek');
 
 
+                        while ($row = $sql->fetch_array()) {
+                            echo '
+                            
+                <tr class="table-light">
+                  <th scope="row">' . $row['hazai'] . '</th>
+                  <th scope="row">' . $row['idegen'] . '</th>
+                  <th scope="row">' . $row['vegeredmeny'] . '</th>
+                  <th scope="row">' . $row['idopont'] . '</th>
+                </tr>';
+                        }
 
+                        ?>
+                    </tbody>
+                </table>
 
-<?php require_once('footer.php') ?>
+            </div>
+        </div>
+
+        <?php require_once('footer.php') ?>
