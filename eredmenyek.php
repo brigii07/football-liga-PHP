@@ -15,9 +15,15 @@ $result = mysqli_query($connection, $sql_query);
 
 ?>
 <br>
+
 <section style="background-color: #838996;">
     <div class="container" style="margin-top: 10px;">
 
+        <form action="eredmenyek\eredmenykereso.php" method="POST">
+            <input type="text" name="keres" id="keres" placeholder="Keresés...">
+            <button type="submit" id="kereso" name="kereso" class="btn btn-dark btn-sm">Keresés</button>
+        </form>
+        <br>
         <div class="row" style="min-height: 100vh; ">
             <div class="col-12">
                 <table class="table table-bordered table-hover table-dark text-center">
@@ -33,18 +39,14 @@ $result = mysqli_query($connection, $sql_query);
                         <?php
                         $sql = $connection->query('SELECT * FROM eredmenyek');
 
-
                         while ($row = $sql->fetch_array()) {
-                            echo '
-                            
-                <tr class="table-light">
-                  <th scope="row">' . $row['hazai'] . '</th>
-                  <th scope="row">' . $row['idegen'] . '</th>
-                  <th scope="row">' . $row['vegeredmeny'] . '</th>
-                  <th scope="row">' . $row['idopont'] . '</th>
-                </tr>';
+                            echo '<tr class="table-light">
+                                <th scope="row">' . $row['hazai'] . '</th>
+                                <th scope="row">' . $row['idegen'] . '</th>
+                                <th scope="row">' . $row['vegeredmeny'] . '</th>
+                                <th scope="row">' . $row['idopont'] . '</th>
+                                </tr>';
                         }
-
                         ?>
                     </tbody>
                 </table>
