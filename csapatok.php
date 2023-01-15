@@ -8,8 +8,6 @@ $databaseName = 'football_projekt';
 
 $connection = mysqli_connect($serverAddress, $username, $password, $databaseName);
 
-
-
 $sql_query = 'SELECT * FROM csapatok';
 $result = mysqli_query($connection, $sql_query);
 

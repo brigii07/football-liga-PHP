@@ -18,11 +18,12 @@ $result = mysqli_query($connection, $sql_query);
 
 <section style="background-color: #838996;">
     <div class="container" style="margin-top: 10px;">
-
-        <form action="eredmenyek\eredmenykereso.php" method="POST">
-            <input type="text" name="keres" id="keres" placeholder="Keresés...">
-            <button type="submit" id="kereso" name="kereso" class="btn btn-dark btn-sm">Keresés</button>
-        </form>
+        <div>
+            <form action="eredmenykereso.php" method="GET">
+                <input type="text" name="query" id="query" placeholder="Keresés...">
+                <button type="submit" id="kereso" name="kereso" class="btn btn-dark btn-sm">Keresés</button>
+            </form>
+        </div>
         <br>
         <div class="row" style="min-height: 100vh; ">
             <div class="col-12">

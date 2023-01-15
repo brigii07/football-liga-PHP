@@ -32,9 +32,6 @@ session_start();
                     <li class="nav-item">
                         <a class="nav-link" href="eredmenyek.php">Meccseredmények</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="jelenleg.php">Jelenleg zajló meccsek</a>
-                    </li>
 
                     <?php
                     if (isset($_SESSION['user'])) {
