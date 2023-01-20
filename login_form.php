@@ -12,6 +12,15 @@
 
                                 <form class="mx-1 mx-md-4" method="POST" action="controllers/login.php">
 
+                                   <!--  ?php
+                                    if ($success > 0) {
+                                        echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                                              <strong>Siker!</strong> A díjazott hozzáadása sikeresen megtörtént.
+                                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                              </div>';
+                                    }
+                                    ?>
+ -->
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
@@ -39,7 +48,7 @@
                                         <button type="submit" id="submit" name="submit" class="btn btn-primary btn-lg btn-dark">Bejelentkezés</button>
                                     </div>
                                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                                    <p class="small fw-bold mt-2 pt-1 mb-0">Még nincs fiókod? <a href="register_form.php" class="link-danger">Regisztrálj</a></p>
+                                        <p class="small fw-bold mt-2 pt-1 mb-0">Még nincs fiókod? <a href="register_form.php" class="link-danger">Regisztrálj</a></p>
                                     </div>
                             </div>
                             <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
@@ -60,4 +69,4 @@
     </div>
     </div>
 </section>
-    <?php require_once('footer.php') ?>
+<?php require_once('footer.php') ?>

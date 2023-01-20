@@ -33,7 +33,7 @@ session_start();
                         <a class="nav-link" href="eredmenyek.php">Meccseredmények</a>
                     </li>
 
-                    <?php
+                   <!--  ?php
                     if (isset($_SESSION['user'])) {
                         echo ' <li class="nav-item">
                         <a class="nav-link" href="fogadas.php">Fogadás</a>
@@ -42,7 +42,7 @@ session_start();
                         <a class="nav-link" href="credit.php">Credit vétel</a>
                     </li>';
                     }
-                    ?>
+                    ?> -->
 
                 </ul>
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
