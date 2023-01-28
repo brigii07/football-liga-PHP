@@ -28,7 +28,7 @@ if (isset($_POST['submit'])) {
         {
             
             $_SESSION['user'] = $user;
-            header('Location: ../index.php?loggedIn=true');
+            header('Location: ../user.php?loggedIn=true');
         }
         else 
         {

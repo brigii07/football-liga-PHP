@@ -8,8 +8,6 @@ $databaseName = 'football_projekt';
 
 $connection = mysqli_connect($serverAddress, $username, $password, $databaseName);
 
-
-
 $sql_query = 'SELECT * FROM forrasok';
 $result = mysqli_query($connection, $sql_query);
 
@@ -67,6 +65,5 @@ $result = mysqli_query($connection, $sql_query);
                 Ez még töltődik
             </div>
         </div>
-
 
         <?php require_once('footer.php') ?>

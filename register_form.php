@@ -47,10 +47,18 @@
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
+                      <label class="form-label" for="telefon"><b>Telefonszám</b></label>
+                      <input type="tel" id="telefon" name="telefon" class="form-control" placeholder="+36 50 377 2340" />
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
                       <label for="eletkor"><b>Életkor:</b></label>
                       <div id="passwordHelpBlock" class="form-text">
-                      18 éven aluliak nem regisztrálhatnak.
-                    </div>
+                        18 éven aluliak nem regisztrálhatnak.
+                      </div>
                       <input type="number" id="eletkor" class="form-control" name="eletkor" placeholder="18" required min="18" max="90">
                     </div>
 

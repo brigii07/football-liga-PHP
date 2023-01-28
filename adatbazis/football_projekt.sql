@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2023. Jan 15. 21:23
+-- Létrehozás ideje: 2023. Jan 28. 13:17
 -- Kiszolgáló verziója: 10.4.21-MariaDB
 -- PHP verzió: 8.0.11
 
@@ -149,6 +149,30 @@ CREATE TABLE `informacios_forrasok` (
 -- --------------------------------------------------------
 
 --
+-- Tábla szerkezet ehhez a táblához `kredit_vetel`
+--
+
+CREATE TABLE `kredit_vetel` (
+  `id` int(11) NOT NULL,
+  `kerdes` varchar(255) COLLATE utf8_hungarian_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+--
+-- A tábla adatainak kiíratása `kredit_vetel`
+--
+
+INSERT INTO `kredit_vetel` (`id`, `kerdes`) VALUES
+(1, 'Mekkora volt a legnagyobb Credit nyereséged?'),
+(2, 'Mekkora nyereség céljával regisztráltál ide?'),
+(3, 'Mikor regisztráltál?'),
+(4, 'Mit változtatnál meg az oldalon?'),
+(5, 'Mekkora volt a legnagyobb Credit, amit egy meccsre tettél?'),
+(6, 'Melyik a kedvenc csapatod?'),
+(7, 'Fogadnál külföldiekre is?');
+
+-- --------------------------------------------------------
+
+--
 -- Tábla szerkezet ehhez a táblához `registered`
 --
 
@@ -158,26 +182,96 @@ CREATE TABLE `registered` (
   `email` varchar(255) COLLATE utf8_hungarian_ci DEFAULT NULL,
   `eletkor` int(11) DEFAULT NULL,
   `credit` int(11) DEFAULT NULL,
-  `credit_vetel` int(11) DEFAULT NULL
+  `credit_vetel` int(11) DEFAULT NULL,
+  `telefonszam` varchar(255) COLLATE utf8_hungarian_ci DEFAULT NULL,
+  `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
 --
 -- A tábla adatainak kiíratása `registered`
 --
 
-INSERT INTO `registered` (`username`, `password`, `email`, `eletkor`, `credit`, `credit_vetel`) VALUES
-('valami', '$2y$10$W2IxcJ8gdxn1zvaAnz.rnuXwcYUJQuPFzR3DCERbuwr/e218M/AmS', 'valami@valami.hu', 19, 1500, NULL);
+INSERT INTO `registered` (`username`, `password`, `email`, `eletkor`, `credit`, `credit_vetel`, `telefonszam`, `id`) VALUES
+('valami', '$2y$10$guWboaH6M6k2mFK5G1TVH.tla.Zq4ZqX4jDZNCSCV6jEwIK42csIa', 'valami@valami.hu', 20, 1500, 0, '06201520253', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `uzenetek`
+--
+
+CREATE TABLE `uzenetek` (
+  `id` int(11) NOT NULL,
+  `felhasznaloi_nev` varchar(255) COLLATE utf8_hungarian_ci DEFAULT NULL,
+  `email_cim` varchar(255) COLLATE utf8_hungarian_ci DEFAULT NULL,
+  `uzenet` varchar(255) COLLATE utf8_hungarian_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `valaszok`
+--
+
+CREATE TABLE `valaszok` (
+  `id` int(11) NOT NULL,
+  `valasz` varchar(255) COLLATE utf8_hungarian_ci DEFAULT NULL,
+  `vasarolt_mar` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
 --
 -- Indexek a kiírt táblákhoz
 --
 
 --
+-- A tábla indexei `kredit_vetel`
+--
+ALTER TABLE `kredit_vetel`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- A tábla indexei `registered`
 --
 ALTER TABLE `registered`
+  ADD UNIQUE KEY `id` (`id`),
   ADD UNIQUE KEY `username` (`username`),
   ADD UNIQUE KEY `email` (`email`);
+
+--
+-- A tábla indexei `uzenetek`
+--
+ALTER TABLE `uzenetek`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `felhasznaloi_nev` (`felhasznaloi_nev`),
+  ADD UNIQUE KEY `email_cim` (`email_cim`);
+
+--
+-- A tábla indexei `valaszok`
+--
+ALTER TABLE `valaszok`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- A kiírt táblák AUTO_INCREMENT értéke
+--
+
+--
+-- AUTO_INCREMENT a táblához `kredit_vetel`
+--
+ALTER TABLE `kredit_vetel`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT a táblához `registered`
+--
+ALTER TABLE `registered`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT a táblához `uzenetek`
+--
+ALTER TABLE `uzenetek`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

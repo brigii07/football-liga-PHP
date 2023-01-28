@@ -33,7 +33,7 @@ session_start();
                         <a class="nav-link" href="eredmenyek.php">Meccseredmények</a>
                     </li>
 
-                   <!--  ?php
+                    <!--  ?php
                     if (isset($_SESSION['user'])) {
                         echo ' <li class="nav-item">
                         <a class="nav-link" href="fogadas.php">Fogadás</a>
@@ -60,10 +60,9 @@ session_start();
                                 <ul class="dropdown-menu">
                                     <?php
                                     if (isset($_SESSION['user'])) {
-                                       
-                                       echo '<li><a class="dropdown-item" href="user.php">' .$_SESSION["user"]["username"]. '</a></li>';
-                                    } 
-                                    else {
+
+                                        echo '<li><a class="dropdown-item" href="user.php">' . $_SESSION["user"]["username"] . '</a></li>';
+                                    } else {
                                     }
 
                                     if (isset($_SESSION['user'])) {

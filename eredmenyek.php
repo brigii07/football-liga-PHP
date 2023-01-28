@@ -20,8 +20,8 @@ $result = mysqli_query($connection, $sql_query);
     <div class="container" style="margin-top: 10px;">
         <div>
             <form action="eredmenykereso.php" method="GET">
-                <input type="text" name="query" id="query" placeholder="Keresés...">
-                <button type="submit" id="kereso" name="kereso" class="btn btn-dark btn-sm">Keresés</button>
+                <input type="text" name="search" id="search" placeholder="Keresés...">
+                <button type="submit" id="search" name="search" class="btn btn-dark btn-sm">Keresés</button>
             </form>
         </div>
         <br>
