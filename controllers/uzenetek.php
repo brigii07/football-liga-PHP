@@ -15,13 +15,16 @@ if (isset($_POST['submit'])) {
     $statement = mysqli_stmt_init($connection);
 
     if (empty($name) || empty($cim) || empty($uzenet)) {
+        header('Location: ../user.php');
         echo 'Minden adatot tölts ki!';
     } elseif (mysqli_num_rows($result) < 0) {
+        header('Location: ../user.php');
         echo 'Ez az email cím hibás.';
     } else {
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
+        
         if (mysqli_stmt_prepare($statement, $query) == false) {
+            header('Location: ../user.php');
+
             echo 'Az inicializálás nem működik.';
         } else {
             mysqli_stmt_bind_param($statement, 'sss', $name, $cim, $uzenet);
@@ -33,5 +36,6 @@ if (isset($_POST['submit'])) {
         return $eredmeny = true;
     }
 } else {
-    echo '403 error - Not authorized';
+    header('Location: ../user.php');
+    echo 'Az üzenetet nem tudtuk kézbesíteni';
 }

@@ -9,9 +9,9 @@ if (isset($_POST['submit'])) {
     $email = mysqli_real_escape_string($connection, $_POST['email']);
 
     $query = "SELECT * FROM registered WHERE username = '$username'";
-    $query_email = "SELECT * FROM registered WHERE email = '$email'";
+    //$query_email = "SELECT * FROM registered WHERE email = '$email'";
 
-    $result_email = mysqli_query($connection, $query_email);
+    //$result_email = mysqli_query($connection, $query_email);
     $result = mysqli_query($connection, $query);
     
     if (mysqli_num_rows($result) != 1) {

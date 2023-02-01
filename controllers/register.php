@@ -20,19 +20,25 @@ if (isset($_POST['submit'])) {
     $statement = mysqli_stmt_init($connection);
 
     if (empty($username) || empty($password) || empty($email) || empty($eletkor) || empty($telefon)) {
+        header('Location: ../register_form.php');
         echo 'Minden adatot tölts ki!';
     } elseif (mysqli_num_rows($result) > 0) {
+        header('Location: ../register_form.php');
         echo 'Ez az email cím már létezik.';
     } elseif ($password != $password_confirm) {
+        header('Location: ../register_form.php');
         echo 'A jelszavak nem egyeznek meg.';
     } elseif (strlen($password) && strlen($password_confirm) < 6) {
+        header('Location: ../register_form.php');
         echo 'A jelszavad túl rövid, 6-nál több karaktert kell tartalmaznia.';
     }elseif (strlen($telefon) < 11 || str_contains($telefon, '06') != true){
+        header('Location: ../register_form.php');
         echo 'A telefonszámod rövid vagy egyáltalán nem megfelelő';
     } else {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         if (mysqli_stmt_prepare($statement, $query) == false) {
+            header('Location: ../register_form.php');
             echo 'Az inicializálás nem működik.';
         } else {
             mysqli_stmt_bind_param($statement, 'sssss', $username, $hashed_password, $email, $eletkor, $telefon);
@@ -42,5 +48,6 @@ if (isset($_POST['submit'])) {
         header('Location: ../login_form.php');
     }
 } else {
+    header('Location: ../register_form.php');
     echo '403 error - Not authorized';
 }

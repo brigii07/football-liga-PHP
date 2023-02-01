@@ -19,9 +19,10 @@ $result = mysqli_query($connection, $sql_query);
 <section style="background-color: #838996;">
     <div class="container" style="margin-top: 10px;">
         <div>
+            <p><b>Keresés csapatnév alapján</b></p>
             <form action="eredmenykereso.php" method="GET">
                 <input type="text" name="search" id="search" placeholder="Keresés...">
-                <button type="submit" id="search" name="search" class="btn btn-dark btn-sm">Keresés</button>
+                <button type="submit" id="keres" name="keres" class="btn btn-dark btn-sm">Keresés</button>
             </form>
         </div>
         <br>
