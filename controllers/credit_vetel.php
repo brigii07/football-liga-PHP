@@ -8,9 +8,9 @@ $databaseName = 'football_projekt';
 $connection = mysqli_connect($serverAddress, $username, $password, $databaseName);
 
 if (isset($_POST['submit'])) {
-    $leadas = mysqli_real_escape_string($connection, $_POST['leadas']);
+    $valasz = mysqli_real_escape_string($connection, $_POST['valasz']);
     $email = mysqli_real_escape_string($connection, $_SESSION['user']['email']);
-    $vasarolt_mar = mysqli_real_escape_string($connection, $_SESSION['user']['credit_vetel'] + 1);
+    $vasarolt_mar = mysqli_real_escape_string($connection, $_SESSION['user']['credit_vetel']);
     $felhasznalo_id = mysqli_real_escape_string($connection, $_SESSION['user']['id']);
     $credit = mysqli_real_escape_string($connection, $_SESSION['user']['credit'] + 500);
 

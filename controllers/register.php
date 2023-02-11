@@ -7,7 +7,8 @@ if (isset($_POST['submit'])) {
     $password = mysqli_real_escape_string($connection, $_POST['password']);
     $email = mysqli_real_escape_string($connection, $_POST['email']);
     $eletkor = mysqli_real_escape_string($connection, $_POST['eletkor']);
-    $telefon = mysqli_real_escape_string($connection, $_POST['telefon']);
+   
+    $admin = mysqli_real_escape_string($connection, $_POST['admin']);
     $credit = 1500;
     $credit_vetel = 0;
     $password_confirm = mysqli_real_escape_string($connection, $_POST['password_confirm']);
@@ -16,10 +17,10 @@ if (isset($_POST['submit'])) {
     $result = mysqli_query($connection, $check_query);
 
 
-    $query = "INSERT INTO `registered`(`username`, `password`, `email`, `eletkor`, `credit`, `credit_vetel`, `telefonszam`) VALUES (?,?,?,?, $credit, $credit_vetel,?);";
+    $query = "INSERT INTO `registered`(`username`, `password`, `email`, `eletkor`, `credit`, `credit_vetel`, `admin`) VALUES (?,?,?,?, $credit, $credit_vetel,?);";
     $statement = mysqli_stmt_init($connection);
 
-    if (empty($username) || empty($password) || empty($email) || empty($eletkor) || empty($telefon)) {
+    if (empty($username) || empty($password) || empty($email) || empty($eletkor)) {
         header('Location: ../register_form.php');
         echo 'Minden adatot tölts ki!';
     } elseif (mysqli_num_rows($result) > 0) {
@@ -31,17 +32,15 @@ if (isset($_POST['submit'])) {
     } elseif (strlen($password) && strlen($password_confirm) < 6) {
         header('Location: ../register_form.php');
         echo 'A jelszavad túl rövid, 6-nál több karaktert kell tartalmaznia.';
-    }elseif (strlen($telefon) < 11 || str_contains($telefon, '06') != true){
-        header('Location: ../register_form.php');
-        echo 'A telefonszámod rövid vagy egyáltalán nem megfelelő';
-    } else {
+    }
+     else {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        if (mysqli_stmt_prepare($statement, $query) == false) {
+        if (mysqli_stmt_prepare($statement, $query) == false ) {
             header('Location: ../register_form.php');
             echo 'Az inicializálás nem működik.';
         } else {
-            mysqli_stmt_bind_param($statement, 'sssss', $username, $hashed_password, $email, $eletkor, $telefon);
+            mysqli_stmt_bind_param($statement, 'sssss', $username, $hashed_password, $email, $eletkor, $admin);
             mysqli_stmt_execute($statement);
         }
 

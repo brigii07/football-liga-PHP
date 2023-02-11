@@ -22,17 +22,43 @@
                             echo '<h5 class="my-3">' . $_SESSION["user"]["username"] . '</h5>';
                         }
                         ?>
-                        <p class="text-muted mb-1">Regisztrált felhasználó</p>
-                        <div class="d-flex justify-content-center mb-2">
+
+                        <?php 
+                         if ($_SESSION['user']['admin'] == 1) {
+                             echo '<p class="text-muted mb-1"> Admin jogosultság </p>';
+                         }
+                         else{
+                             echo '<p class="text-muted mb-1"> Regisztrált felhasználó </p>';
+                         }
+                        ?>
+
+                        <?php
+                        if($_SESSION['user']['admin'] == 1)
+                        {
+                            echo '<div class="d-flex justify-content-center mb-2">
+                            <form action="fogadas.php">
+                                <button type="submit" class="btn btn-primary">Közelgő meccs kijelölése</button>
+                            </form>
+                            <form action="credit.php">
+                                <button type="submit" class="btn btn-outline-primary ms-1">Meccs lejátszása</button>
+                            </form>
+                        </div>';
+                        }
+                        else{
+                            echo '<div class="d-flex justify-content-center mb-2">
                             <form action="fogadas.php">
                                 <button type="submit" class="btn btn-primary">Fogadás</button>
                             </form>
                             <form action="credit.php">
                                 <button type="submit" class="btn btn-outline-primary ms-1">Credit vétel</button>
                             </form>
-                        </div>
+                        </div>';
+                        }
+
+                        ?>
                         <br>
                         <hr>
+
                         <div class="row">
                             <div class="col-sm-3">
                                 <p class="mb-0">Email</p>
@@ -60,31 +86,44 @@
                             </div>
                         </div>
                         <hr>
+
                         <div class="row">
                             <div class="col-sm-3">
                                 <p class="mb-0">Credit</p>
                             </div>
                             <div class="col-sm-9">
                                 <?php
-                                if (isset($_SESSION['user'])) {
-                                    echo '<p class="text-muted mb-0">' . $_SESSION["user"]["credit"] . 'CR </p>';
+                                if($_SESSION['user']['admin'] == 1)
+                                {
+                                    echo '<p class="text-muted mb-0">Nincs credit</p>';
+                                }
+                                else{
+                                    if (isset($_SESSION['user'])) {
+                                        echo '<p class="text-muted mb-0">' . $_SESSION["user"]["credit"] . 'CR </p>';
+                                    }
                                 }
                                 ?>
                             </div>
                         </div>
                         <hr>
+
                         <div class="row">
                             <div class="col-sm-3">
                                 <p class="mb-0">Credit igénylése</p>
                             </div>
                             <div class="col-sm-9">
                                 <?php
-                                if ($_SESSION['user']['credit_vetel'] == 0) {
-                                    echo '<p class="text-muted mb-0">3 lehetőséged van credit vásárlásra.</p>';
-                                } elseif ($_SESSION['user']['credit_vetel'] == 3) {
-                                    echo '<p class="text-muted mb-0">Már nincs lehetőséged venni plusz creditet.</p>';
+                                if($_SESSION['user']['admin'] == 1)
+                                {
+                                    echo '<p class="text-muted mb-0">Adminként nincs lehetőséged credit vásárlásra.</p>';
                                 }
-
+                                else{
+                                    if ($_SESSION['user']['credit_vetel'] == 0) {
+                                        echo '<p class="text-muted mb-0">3 lehetőséged van credit vásárlásra.</p>';
+                                    } elseif ($_SESSION['user']['credit_vetel'] == 3) {
+                                        echo '<p class="text-muted mb-0">Már nincs lehetőséged venni plusz creditet.</p>';
+                                    }
+                                }
                                 ?>
                             </div>
                         </div>
@@ -92,12 +131,15 @@
 
                         <div class="row">
                             <div class="col-sm-3">
-                                <p class="mb-0">Telefonszám</p>
+                                <p class="mb-0">Admin</p>
                             </div>
                             <div class="col-sm-9">
                                 <?php
-                                if (isset($_SESSION['user'])) {
-                                    echo '<p class="text-muted mb-0"> +' . $_SESSION["user"]["telefonszam"] . '</p>';
+                                if ($_SESSION['user']['admin'] == 1) {
+                                    echo '<p class="text-muted mb-0"> Igen </p>';
+                                }
+                                else{
+                                    echo '<p class="text-muted mb-0"> Nem </p>';
                                 }
                                 ?>
                             </div>
@@ -106,7 +148,14 @@
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <?php
+            if($_SESSION['user']['admin'] == 1)
+            {
+
+            }
+            else
+            {
+                echo '<div class="col-md-6">
                 <p><b>Probléma esetén</b></p>
                 <form method="POST" action="controllers/uzenetek.php">
                     <div class="form-outline mb-3">
@@ -127,7 +176,10 @@
 
                     <button type="submit" id="submit" name="submit" class="btn btn-primary btn-block mb-4">Elküldés</button>
                 </form>
-            </div>
+            </div>';
+            }
+            ?>
+            
         </div>
     </div>
 

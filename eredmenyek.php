@@ -26,7 +26,7 @@ $result = mysqli_query($connection, $sql_query);
             </form>
         </div>
         <br>
-        <div class="row" style="min-height: 100vh; ">
+        <div class="row" style="max-height: 100vh; ">
             <div class="col-12">
                 <table class="table table-bordered table-hover table-dark text-center">
                     <thead>
