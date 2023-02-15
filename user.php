@@ -3,7 +3,13 @@
 <section style="background-color: #838996;">
     <div class="container py-5">
         <div class="row">
-            <div class="col-6">
+        <?php 
+                         if ($_SESSION['user']['admin'] == 1) {
+                             echo '<div class="col-4"></div>';
+                         };
+                        ?>
+            
+            <div class="col-4">
                 <div class="card mb-4">
                     <div class="card-body text-center">
 
@@ -36,10 +42,10 @@
                         if($_SESSION['user']['admin'] == 1)
                         {
                             echo '<div class="d-flex justify-content-center mb-2">
-                            <form action="fogadas.php">
+                            <form action="kozelgo_meccs.php">
                                 <button type="submit" class="btn btn-primary">Közelgő meccs kijelölése</button>
                             </form>
-                            <form action="credit.php">
+                            <form action="meccs_lejatszasa.php">
                                 <button type="submit" class="btn btn-outline-primary ms-1">Meccs lejátszása</button>
                             </form>
                         </div>';
@@ -179,7 +185,7 @@
             </div>';
             }
             ?>
-            
+            <div class="col-4"></div>
         </div>
     </div>
 

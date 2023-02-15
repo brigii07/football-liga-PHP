@@ -28,6 +28,7 @@ $result = mysqli_query($connection, $sql_hazai);
                         </p>
                         <p><input type="text" class="form-control" name="valasz" id="valasz" placeholder="Válasz..." required></p>
                         <button type="submit" id="submit" name="submit" class="btn btn-dark">Credit igénylése</button>
+
                     </div>
                 </div>
             </form>
