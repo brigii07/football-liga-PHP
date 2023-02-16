@@ -1,4 +1,5 @@
 <?php require_once('database.php');
+/* session_start(); */
 
 $serverAddress = 'localhost';
 $username = 'root';
@@ -38,8 +39,8 @@ if (isset($_POST['submit'])) {
         } else {
             mysqli_stmt_bind_param($statement, 'sss', $valasz, $vasarolt_mar, $felhasznalo_id);
             mysqli_stmt_execute($statement);
-            /* $update_query = "UPDATE registered INNER JOIN valaszok ON valaszok.felhasznaloiId = registered.id  
-        SET registered.credit_vetel = $vasarolt_mar, registered.credit = $credit"; */
+             $update_query = "UPDATE registered INNER JOIN valaszok ON valaszok.felhasznaloiId = registered.id  
+        SET registered.credit_vetel = $vasarolt_mar, registered.credit = $credit"; 
         }
 
         header('Location: ../user.php');
@@ -53,3 +54,5 @@ if (isset($_POST['submit'])) {
     echo 'A Credit igénylési kérését nem tudtuk teljesíteni.';
 }
 }
+
+/* session_destroy(); */
