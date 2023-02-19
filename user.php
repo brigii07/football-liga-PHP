@@ -1,7 +1,15 @@
 <?php require_once('header.php') ?>
 
 <section style="background-color: #838996;">
-    <div class="container py-5">
+<style>
+.vl {
+  border-left: 95px solid #212529;
+  border-right: 95px solid #212529;
+  height: 341px;
+}
+</style>
+<div class="vl">
+<div class="container py-5">
         <div class="row">
         <?php 
                          if ($_SESSION['user']['admin'] == 1) {
@@ -189,5 +197,9 @@
         </div>
     </div>
 
+</div>
+
+<div class="vl"></div>
+    
 </section>
 <?php require_once('footer.php') ?>

@@ -16,23 +16,10 @@ session_start();
 <body style="background-color:#838996;">
     <nav class="navbar navbar-expand-lg bg-dark">
         <div class="container-fluid bg-light">
-            <nav class="navbar navbar-light bg-light">
-                <a class="navbar-brand" href="index.php">
-                    <img src="images/labda.png" width="30" height="30" class="d-inline-block align-top" alt="">
-                </a>
-            </nav>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="csapatok.php">Csapatok</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="eredmenyek.php">Meccseredmények</a>
-                    </li>
-                </ul>
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
 
                     <div class="offcanvas-header">
@@ -40,7 +27,7 @@ session_start();
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body">
-                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-5">
+                        <ul class="navbar-nav justify-content-end">
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Menü
@@ -54,16 +41,16 @@ session_start();
                                     }
 
                                     if (isset($_SESSION['user'])) {
-                                        echo '<form class="d-flex" action="controllers/logout.php">
-                <li><a class="dropdown-item" href="controllers/logout.php">Kijelentkezés</a></li>
-                  </form>';
+                                        echo '<form action="controllers/logout.php">
+<li><a class="dropdown-item" href="controllers/logout.php">Kijelentkezés</a></li>
+</form>';
                                     } else {
-                                        echo '<form class="d-flex" method="POST" action="controllers/login.php">
-                <li><a class="dropdown-item" href="login_form.php">Bejelentkezés</a></li>
-                     </form>
-             <form class="d-flex" action="register_form.php">
-             <li><a class="dropdown-item" href="register_form.php">Regisztráció</a></li>
-            </form>';
+                                        echo '<form method="POST" action="controllers/login.php">
+<li><a class="dropdown-item" href="login_form.php">Bejelentkezés</a></li>
+ </form>
+<form action="register_form.php">
+<li><a class="dropdown-item" href="register_form.php">Regisztráció</a></li>
+</form>';
                                     }
 
                                     ?>
@@ -72,14 +59,28 @@ session_start();
                                         <hr class="dropdown-divider">
                                     </li>
                                     <li><a class="dropdown-item" href="forrasok.php">Források</a></li>
-                                    <li><a class="dropdown-item disabled" href="#">Webshopunk</a></li>
+                                    <li><a class="dropdown-item disabled" href="#">Webshop</a></li>
                                 </ul>
                             </li>
                         </ul>
                     </div>
                 </div>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="csapatok.php">Csapatok</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="eredmenyek.php">Meccseredmények</a>
+                    </li>
+                </ul>
+                <nav class="navbar navbar-light bg-light">
+                <a class="navbar-brand" href="index.php">
+                    <img src="images/labda.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                </a>
+            </nav>
+
             </div>
         </div>
-    </div>
-</nav>
+        </div>
+    </nav>
 </body>
