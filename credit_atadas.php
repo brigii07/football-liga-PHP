@@ -12,32 +12,42 @@ $sql_hazai = "SELECT kerdes FROM kredit_vetel WHERE id LIKE '%$query%'";
 $result = mysqli_query($connection, $sql_hazai);
 
 ?>
-<div class="container">
-    <div class="row">
-        <div class="col-3"></div>
-        <div class="col-6">
-            <br>
-            <form action="controllers/credit_vetel.php" method="POST">
-                <div class="card" style="width: 35rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Kérdés</h5>
-                        <p class="card-text">
-                            <?php while ($row = mysqli_fetch_assoc($result)) {
-                                echo $row['kerdes'];
-                            } ?>
-                        </p>
-                        <p><input type="text" class="form-control" name="valasz" id="valasz" placeholder="Válasz..." required></p>
-                        <button type="submit" id="submit" name="submit" class="btn btn-dark">Credit igénylése</button>
+<style>
+    .vl {
+        border-left: 95px solid #212529;
+        border-right: 95px solid #212529;
+        height: 341px;
+    }
+</style>
+<div class="vl">
+    <div class="container">
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6">
+                <br>
+                <form action="controllers/credit_vetel.php" method="POST">
+                    <div class="card" style="width: 35rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">Kérdés</h5>
+                            <p class="card-text">
+                                <?php while ($row = mysqli_fetch_assoc($result)) {
+                                    echo $row['kerdes'];
+                                } ?>
+                            </p>
+                            <p><input type="text" class="form-control" name="valasz" id="valasz" placeholder="Válasz..." required></p>
+                            <button type="submit" id="submit" name="submit" class="btn btn-dark">Credit igénylése</button>
 
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
+            <div class="col-3"></div>
         </div>
-        <div class="col-3"></div>
-    </div>
 
+    </div>
 </div>
 
+<div class="vl"></div>
 <?php require_once('footer.php') ?>
 
 <!-- ha azt megválaszolod el kell tárolni majd adatbázisban, ha ezt megtetted akkor kapsz 500 free creditet, de ilyet csak egyszer lehet. A kérdések a (creditvétel) adatbázisból fognak betölteni, lesz a kérdések tábla és lesz a válaszok tábla, emellé minden felhasználóhoz van creditvetel változó a regisztrációnál ami 0, ha megkapod a free creditet az 1-re ugrik és utána már nem fogsz tudni igényelni. -->
