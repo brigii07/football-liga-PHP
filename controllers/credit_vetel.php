@@ -1,5 +1,5 @@
 <?php require_once('database.php');
-/* session_start(); */
+ session_start(); 
 
 if(isset($_SESSION['user']))
 {
@@ -7,7 +7,6 @@ if(isset($_SESSION['user']))
     $vasarlas = $_SESSION['user']['credit_vetel'];
     $fel_id = $_SESSION['user']['id'];
     $osszcredit = $_SESSION['user']['credit'] + 500;
-
 if (isset($_POST['submit'])) {
    
     $valasz = mysqli_real_escape_string($connection, $_POST['valasz']);
@@ -19,10 +18,10 @@ if (isset($_POST['submit'])) {
     $check_query = "SELECT * FROM registered WHERE email = '$email'";
     $result = mysqli_query($connection, $check_query);
 
-    $query = "INSERT INTO `valaszok`(`valasz`, `vasarolt_mar`, `felhasznaloiId`) VALUES ($valasz,$vasarolt_mar,$felhasznalo_id);";
+    $query = "INSERT INTO `valaszok`(`valasz`, `vasarolt_mar`, `felhasznaloiId`) VALUES (?,?,?);";
     $statement = mysqli_stmt_init($connection);
 
-    if (empty($leadas)) {
+    if (empty($valasz)) {
         echo 'Nem válaszoltál a kérdésre, így nem igényelhetsz creditet.';
     } elseif ($vasarolt_mar == 3) {
         echo 'Már nem igényelhetsz többször creditet.';
@@ -35,13 +34,10 @@ if (isset($_POST['submit'])) {
             mysqli_stmt_execute($statement);
              $update_query = "UPDATE registered INNER JOIN valaszok ON valaszok.felhasznaloiId = registered.id  
         SET registered.credit_vetel = $vasarolt_mar, registered.credit = $credit"; 
+        mysqli_query($connection, $update_query);
         }
 
         header('Location: ../user.php');
-        /* echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>Siker!</strong> A credit igénylése sikeres volt. 
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>'; */
     }
 } else {
     /* header('Location: ../credit.php'); */
