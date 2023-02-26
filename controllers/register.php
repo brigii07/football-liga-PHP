@@ -7,7 +7,7 @@ if (isset($_POST['submit'])) {
     $password = mysqli_real_escape_string($connection, $_POST['password']);
     $email = mysqli_real_escape_string($connection, $_POST['email']);
     $eletkor = mysqli_real_escape_string($connection, $_POST['eletkor']);
-   
+
     $admin = mysqli_real_escape_string($connection, $_POST['admin']);
     $credit = 1500;
     $credit_vetel = 0;
@@ -17,7 +17,7 @@ if (isset($_POST['submit'])) {
     $result = mysqli_query($connection, $check_query);
 
 
-    $query = "INSERT INTO `registered`(`username`, `password`, `email`, `eletkor`, `credit`, `credit_vetel`, `admin`) VALUES (?,?,?,?, $credit, $credit_vetel,?);";
+    $query = "INSERT INTO `registered`(`username`, `password`, `email`, `eletkor`, `credit`, `credit_vetel`, `admin`) VALUES (?,?,?,?,?,?,?);";
     $statement = mysqli_stmt_init($connection);
 
     if (empty($username) || empty($password) || empty($email) || empty($eletkor)) {
@@ -32,15 +32,14 @@ if (isset($_POST['submit'])) {
     } elseif (strlen($password) && strlen($password_confirm) < 6) {
         header('Location: ../register_form.php');
         echo 'A jelszavad túl rövid, 6-nál több karaktert kell tartalmaznia.';
-    }
-     else {
+    } else {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        if (mysqli_stmt_prepare($statement, $query) == false ) {
+        if (mysqli_stmt_prepare($statement, $query) == false) {
             header('Location: ../register_form.php');
             echo 'Az inicializálás nem működik.';
         } else {
-            mysqli_stmt_bind_param($statement, 'sssss', $username, $hashed_password, $email, $eletkor, $admin);
+            mysqli_stmt_bind_param($statement, 'sssssss', $username, $hashed_password, $email, $eletkor, $credit, $credit_vetel, $admin);
             mysqli_stmt_execute($statement);
         }
 

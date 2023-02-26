@@ -52,44 +52,14 @@ $result = mysqli_query($connection, $sql_query);
 </style>
 
 <div class="vl">
-  <div class="container">
-    <div class="card kartya" style="width: 18rem; margin-top:10px;">
-      <div class="card-body">
-        <?php
-        while ($row = mysqli_fetch_assoc($result)) {
-          echo '
-        <p class="card-text" style="margin-top:5px;">' . $row['hazai_cs'] . ' VS ' .$row['idegen_cs']. '</p>
-        <a href="#" class="btn btn-primary" style="margin-top:2px;">Go somewhere</a>';
-        }
-        ?>
-      </div>
-    </div>
-
-    <div class="card kartya1" style="width: 18rem; margin-top:10px;">
-      <div class="card-body">
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
 
 
-    <div class="vertical"></div>
 
-    <div class="card kartya2" style="width: 18rem; margin-top:10px;">
-      <div class="card-body">
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
 
-    <div class="card kartya3" style="width: 18rem; margin-top:10px;">
-      <div class="card-body">
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
-  </div>
+<div class="vertical"></div>
 </div>
+
+
 
 <div class="vl"></div>
 

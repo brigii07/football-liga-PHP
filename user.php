@@ -1,4 +1,5 @@
-<?php require_once('header.php') ?>
+<?php require_once('header.php') ;
+?>
 
 <section style="background-color: #838996;">
 <style>
