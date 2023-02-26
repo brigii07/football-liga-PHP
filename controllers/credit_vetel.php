@@ -33,7 +33,7 @@ if (isset($_POST['submit'])) {
             mysqli_stmt_bind_param($statement, 'sss', $valasz, $vasarolt_mar, $felhasznalo_id);
             mysqli_stmt_execute($statement);
              $update_query = "UPDATE registered INNER JOIN valaszok ON valaszok.felhasznaloiId = registered.id  
-        SET registered.credit_vetel = $vasarolt_mar, registered.credit = $credit"; 
+        SET registered.credit_vetel = '$vasarolt_mar', registered.credit = '$credit'"; 
         mysqli_query($connection, $update_query);
         }
 
