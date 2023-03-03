@@ -58,7 +58,6 @@ session_start();
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
-                                    <li><a class="dropdown-item" href="forrasok.php">Források</a></li>
                                     <li><a class="dropdown-item disabled" href="#">Webshop</a></li>
                                 </ul>
                             </li>
