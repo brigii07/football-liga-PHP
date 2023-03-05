@@ -22,22 +22,9 @@ $result = mysqli_query($connection, $sql_query);
     <div class="vl">
         <div class="container py-5">
             <div class="row">
-
-
                 <div class="col-4">
                     <div class="card mb-4">
                         <div class="card-body text-center">
-
-                            <!--    ?php
-                            if(isset($_SESSION['user']['admin'] == 0)){
-                        if ($eredmeny == true) {
-                            echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Üzenet elküldve!</strong> Hamarosan felvesszük Önnel a kapcsolatot.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>';
-                        }
-                    }
-                        ?> -->
 
 
                             <?php
@@ -162,82 +149,42 @@ $result = mysqli_query($connection, $sql_query);
                         </div>
                     </div>
                 </div>
+                <div class="col-1">
 
+                </div>
                 <?php
                 if ($_SESSION['user']['admin'] == 1) {
 
                     $sql = $connection->query('SELECT * FROM uzenetek');
+                    echo '<div class="col-6">
+                    <div class="card mb-4">
+                       <div class="card-body text-center">
+                 <h5 class="my-3">Beérkezett hibaüzenetek</h5>
+                 <div class="d-flex justify-content-center mb-2">
+                                         </div>';
 
                     while ($row = $sql->fetch_array()) {
-                        echo '<div class="col-4">
-                        <div class="card mb-4">
-                           <div class="card-body text-center">
-                     <h5 class="my-3">xd</h5>
-                     <p class="text-muted mb-1"> Admin jogosultság </p>
-                     <div class="d-flex justify-content-center mb-2">
-                                                 <form action="kozelgo_meccs.php">
-                                                     <button type="submit" class="btn btn-primary">Közelgő meccs kijelölése</button>
-                                                 </form>
-                                                 <form action="meccs_lejatszasa.php">
-                                                     <button type="submit" class="btn btn-outline-primary ms-1">Meccs lejátszása</button>
-                                                 </form>
-                                             </div>
-                     <br>
+                        echo '
                                                  <hr>
                      
                                                  <div class="row">
+
+                                                     <div class="col-sm-4">
+                                                         <p class="mb-0">' . $row['email_cim'] . '</p>
+                                                     </div>
+                                                     <div class="col-sm-5">
+                                                         <p class="text-muted mb-0">' . $row['uzenet'] . '</p>
+                                                     </div>
                                                      <div class="col-sm-3">
-                                                         <p class="mb-0">Email</p>
-                                                     </div>
-                                                     <div class="col-sm-9">
-                                                         <p class="text-muted mb-0">xd</p>
-                                                     </div>
-                                                 </div>
-                     
-                      <hr>
-                                                 <div class="row">
-                                                     <div class="col-sm-3">
-                                                         <p class="mb-0">Életkor</p>
-                                                     </div>
-                                                     <div class="col-sm-9">
-                                                         <p>xd</p>
+                                                        <button class="btn btn-dark">Válasz</button>
                                                      </div>
                                                  </div>
                                                  <hr>
-                     
-                                                 <div class="row">
-                                                     <div class="col-sm-3">
-                                                         <p class="mb-0">Credit</p>
-                                                     </div>
-                                                     <div class="col-sm-9">
-                                                        <p class="text-muted mb-0">xd</p>
-                                                     </div>
-                                                 </div>
-                                                 <hr>
-                     
-                                                 <div class="row">
-                                                     <div class="col-sm-3">
-                                                         <p class="mb-0">Credit igénylése</p>
-                                                     </div>
-                                                     <div class="col-sm-9">
-                                                         <p class="text-muted mb-0">Már nincs lehetőséged venni plusz creditet.</p>
-                                                         
-                                                     </div>
-                                                 </div>
-                                                 <hr>
-                     
-                                                 <div class="row">
-                                                     <div class="col-sm-3">
-                                                         <p class="mb-0">Admin</p>
-                                                     </div>
-                                                     <div class="col-sm-9">
-                                                        <p class="text-muted mb-0"> Nem </p>
-                                                     </div>
-                                                 </div>
-                                             </div>
-                                         </div>
-                                     </div>';
+                                            ';
                     }
+                    echo ' </div>
+                    </div>
+                </div>';
                 } else {
                     echo '<div class="col-md-6">
                 <p><b>Probléma esetén</b></p>

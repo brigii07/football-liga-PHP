@@ -14,19 +14,23 @@ if (isset($_POST['submit'])) {
     $query = "INSERT INTO `csapat_parositas`(`hazai_cs`, `idegen_cs`, `hazai_sz`, `dontetlen_sz`, `idegen_sz`) VALUES (?,?,?,?,?)";
     $statement = mysqli_stmt_init($connection);
 
-
-    if (empty($hazai_cs) || empty($vendeg_cs) || empty($hazai_sz) || empty($dontetlen_sz) || empty($idegen_sz)) {
-        echo 'Minden adatot tölts ki!';
-    } else {
-
-        if (mysqli_stmt_prepare($statement, $query) == false) {
-            echo 'Az inicializálás nem működik.';
+    if ($hazai_cs != $vendeg_cs) {
+        if (empty($hazai_cs) || empty($vendeg_cs) || empty($hazai_sz) || empty($dontetlen_sz) || empty($idegen_sz)) {
+            echo 'Minden adatot tölts ki!';
         } else {
-            mysqli_stmt_bind_param($statement, 'sssss', $hazai_cs, $vendeg_cs, $hazai_sz, $dontetlen_sz, $idegen_sz);
-            mysqli_stmt_execute($statement);
+
+            if (mysqli_stmt_prepare($statement, $query) == false) {
+                echo 'Az inicializálás nem működik.';
+            } else {
+                mysqli_stmt_bind_param($statement, 'sssss', $hazai_cs, $vendeg_cs, $hazai_sz, $dontetlen_sz, $idegen_sz);
+                mysqli_stmt_execute($statement);
+            }
+            header('Location: ../kozelgo_meccs.php');
         }
-        header('Location: ../kozelgo_meccs.php');
+    } else {
+        echo 'Nem adhatod meg ugyanazt a csapatot kétszer';
     }
 } else {
     echo 'A párosítás nem sikerült.';
 }
+?>

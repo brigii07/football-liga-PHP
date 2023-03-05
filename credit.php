@@ -13,7 +13,7 @@
         <div class="col-6">
             <div>
                 <br>
-                <p><b>Adj meg egy számot</b></p>
+                <p><b>Adj meg egy számot <i>(A legnagyobb szám 7 lehet)</i></b></p>
                 <form action="credit_atadas.php" method="GET">
                     <input type="number" name="szam" id="szam" placeholder="1" required min="1" max="7">
                     <button type="submit" id="kereso" name="kereso" class="btn btn-dark btn-sm">Elküldés</button>
