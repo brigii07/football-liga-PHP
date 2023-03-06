@@ -78,8 +78,6 @@ $result = mysqli_query($connection, $sql_query);
   ?>
 
 
-
-
   <div class="vertical"></div>
 </div>
 

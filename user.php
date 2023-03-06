@@ -7,6 +7,8 @@ $databaseName = 'football_projekt';
 $connection = mysqli_connect($serverAddress, $username, $password, $databaseName);
 
 $sql_query = 'SELECT * FROM uzenetek';
+$query = 'SELECT * FROM admin_valasz';
+$result1 = mysqli_query($connection, $query);
 $result = mysqli_query($connection, $sql_query);
 
 ?>
@@ -17,6 +19,13 @@ $result = mysqli_query($connection, $sql_query);
             border-left: 95px solid #212529;
             border-right: 95px solid #212529;
             height: 341px;
+        }
+
+        .kartya2 {
+            position: absolute;
+            top:485px;
+            right: 218px;
+            width: 150px;
         }
     </style>
     <div class="vl">
@@ -58,7 +67,7 @@ $result = mysqli_query($connection, $sql_query);
                             </form>
                             <form action="credit.php">
                                 <button type="submit" class="btn btn-outline-primary ms-1">Credit vétel</button>
-                            </form>
+                            </form> 
                         </div>';
                             }
 
@@ -169,25 +178,31 @@ $result = mysqli_query($connection, $sql_query);
                      
                                                  <div class="row">
 
-                                                     <div class="col-sm-4">
+                                                     <div class="col-sm-6">
                                                          <p class="mb-0">' . $row['email_cim'] . '</p>
                                                      </div>
-                                                     <div class="col-sm-5">
+                                                     <div class="col-sm-6">
                                                          <p class="text-muted mb-0">' . $row['uzenet'] . '</p>
                                                      </div>
-                                                     <div class="col-sm-3">
-                                                        <button class="btn btn-dark">Válasz</button>
-                                                     </div>
+                                                    
                                                  </div>
                                                  <hr>
                                             ';
                     }
-                    echo ' </div>
+                    echo ' <div class="text-center">
+                    <form action="admin_valasz.php">
+                       <button class="btn btn-dark">Válasz</button>
+                    <form>
+                       </div>
+                     </div>
                     </div>
                 </div>';
                 } else {
-                    echo '<div class="col-md-6">
-                <p><b>Probléma esetén</b></p>
+                    echo '
+                    <div class="col-6">
+                    <div class="col mb-4">
+                    <div class="card-body">
+                <p class="text-center"><b>Probléma esetén</b></p>
                 <form method="POST" action="controllers/uzenetek.php">
                     <div class="form-outline mb-3">
                         <input type="text" id="name" name="name" class="form-control" placeholder="valami123" />
@@ -205,8 +220,15 @@ $result = mysqli_query($connection, $sql_query);
 
                     </div>
 
-                    <button type="submit" id="submit" name="submit" class="btn btn-primary btn-block mb-4">Elküldés</button>
-                </form>
+                    <button type="submit" id="submit" name="submit" class="btn btn-dark btn-block mb-4">Elküldés</button>
+                </form>';
+                    if ($result1 != false) {
+                        echo '<form action="valasz_megtekintes">
+                       <button type="submit" id="submit" name="submit" class="btn btn-dark btn-block mb-4 kartya2">Beérkezett válasz</button>
+                       </form>';
+                    }
+                    echo '</div>
+            </div>
             </div>';
                 }
                 ?>

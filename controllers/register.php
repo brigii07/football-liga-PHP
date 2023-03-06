@@ -29,7 +29,13 @@ if (isset($_POST['submit'])) {
     } elseif ($password != $password_confirm) {
         header('Location: ../register_form.php');
         echo 'A jelszavak nem egyeznek meg.';
-    } elseif (strlen($password) && strlen($password_confirm) < 6) {
+    }
+    elseif(preg_match("@,.hu", $email))
+    {
+        header('Location: ../register_form.php');
+        echo 'Az email cím nem megfelelő.';
+    } 
+    elseif (strlen($password) && strlen($password_confirm) < 6) {
         header('Location: ../register_form.php');
         echo 'A jelszavad túl rövid, 6-nál több karaktert kell tartalmaznia.';
     } else {

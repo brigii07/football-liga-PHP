@@ -44,5 +44,5 @@ if (isset($_POST['submit'])) {
     echo 'A Credit igénylési kérését nem tudtuk teljesíteni.';
 }
 }
-
+?>
 /* session_destroy(); */
