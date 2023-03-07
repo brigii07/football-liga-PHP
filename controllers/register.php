@@ -55,3 +55,4 @@ if (isset($_POST['submit'])) {
     header('Location: ../register_form.php');
     echo '403 error - Not authorized';
 }
+?>

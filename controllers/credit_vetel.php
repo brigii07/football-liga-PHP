@@ -4,7 +4,7 @@
 if(isset($_SESSION['user']))
 {
     $felhasznaloemail = $_SESSION['user']['email'];
-    $vasarlas = $_SESSION['user']['credit_vetel'];
+    $vasarlas = $_SESSION['user']['credit_vetel'] +1;
     $fel_id = $_SESSION['user']['id'];
     $osszcredit = $_SESSION['user']['credit'] + 500;
 if (isset($_POST['submit'])) {
@@ -44,5 +44,5 @@ if (isset($_POST['submit'])) {
     echo 'A Credit igénylési kérését nem tudtuk teljesíteni.';
 }
 }
-?>
 /* session_destroy(); */
+?>
