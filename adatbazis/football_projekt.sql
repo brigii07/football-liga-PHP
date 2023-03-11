@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2023. Már 08. 09:37
+-- Létrehozás ideje: 2023. Már 11. 13:12
 -- Kiszolgáló verziója: 10.4.27-MariaDB
 -- PHP verzió: 8.2.0
 
@@ -58,21 +58,18 @@ INSERT INTO `csapatok` (`kepnev`, `csapatnev`, `csapatleiras`) VALUES
 --
 
 CREATE TABLE `csapat_parositas` (
-  `hazai_cs` varchar(255) DEFAULT NULL,
-  `idegen_cs` varchar(255) DEFAULT NULL,
   `hazai_sz` varchar(4) DEFAULT NULL,
   `dontetlen_sz` varchar(4) DEFAULT NULL,
-  `idegen_sz` varchar(4) DEFAULT NULL
+  `idegen_sz` varchar(4) DEFAULT NULL,
+  `hazai_idegen_cs` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
 --
 -- A tábla adatainak kiíratása `csapat_parositas`
 --
 
-INSERT INTO `csapat_parositas` (`hazai_cs`, `idegen_cs`, `hazai_sz`, `dontetlen_sz`, `idegen_sz`) VALUES
-('Kisvárda FC', 'Soroksár SC', '1', '2', '3'),
-('Budapest Honvéd FC', 'Ferencváros', '1', '2', '3'),
-('Soroksár SC', 'Mezőkövesd Zsóry FC', '1.5', '6', '4');
+INSERT INTO `csapat_parositas` (`hazai_sz`, `dontetlen_sz`, `idegen_sz`, `hazai_idegen_cs`) VALUES
+('1.5', '7', '3', 'Kisvárda FC - Mezőkövesd Zsóry FC');
 
 -- --------------------------------------------------------
 
@@ -218,7 +215,8 @@ CREATE TABLE `valaszok` (
 --
 
 INSERT INTO `valaszok` (`valasz`, `vasarolt_mar`, `felhasznaloiId`) VALUES
-('semmit', 0, 3);
+('2', 1, 3),
+('sok', 1, 3);
 
 --
 -- Indexek a kiírt táblákhoz
