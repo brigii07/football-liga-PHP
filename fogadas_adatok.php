@@ -34,9 +34,10 @@ $result = mysqli_query($connection, $sql_query);
   }
 
   .kartya2 {
+    margin-top: 10px;
     position: absolute;
     right: 105px;
-    width: 300px;
+    width: 600px;
   }
 </style>
 
@@ -75,14 +76,45 @@ $result = mysqli_query($connection, $sql_query);
   }
   ?>
 
+<?php
+  if ($_SESSION['user']['admin'] == 0) {
+    $sql = $connection->query('SELECT * FROM csapat_parositas');
+    echo '<div class="kartya2">
+                    <div class="card mb-4">
+                       <div class="card-body text-center">
+                 <h5 class="my-3">A választott meccs adatai</h5>
+                 <div class="d-flex justify-content-center mb-2">
+                                         </div>';
+
+    while ($row = $sql->fetch_array()) {
+      echo '
+        <hr>
+                     
+          <div class="row">
+              <div class="col-sm-4">
+              <p class="mb-0"> Hazai: ' . $row['hazai_sz'] . 'x</p>
+              </div>
+              <div class="col-sm-4">
+              <p class="mb-0"> Döntetlen: ' . $row['dontetlen_sz'] . 'x</p>
+              </div>
+              <div class="col-sm-4">
+              <p class="mb-0"> Idegen: ' . $row['idegen_sz'] . 'x</p>
+              </div>
+          </div>
+        <hr>';
+    }
+    echo ' </div>
+        </div>
+       </div>';
+  }
+  ?>
 
   <div class="vertical"></div>
   
 </div>
 
-
-
-<div class="vl"></div>
+<div class="vl">
+</div>
 
 
 

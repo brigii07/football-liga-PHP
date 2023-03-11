@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2023. Feb 23. 09:12
+-- Létrehozás ideje: 2023. Már 08. 09:37
 -- Kiszolgáló verziója: 10.4.27-MariaDB
 -- PHP verzió: 8.2.0
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `csapatok` (
   `kepnev` varchar(255) DEFAULT NULL,
-  `csapatnev` varchar(255) DEFAULT NULL,
+  `csapatnev` varchar(255) NOT NULL,
   `csapatleiras` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
@@ -38,17 +38,17 @@ CREATE TABLE `csapatok` (
 --
 
 INSERT INTO `csapatok` (`kepnev`, `csapatnev`, `csapatleiras`) VALUES
-('fradi.jpg', 'Ferencváros', 'A Ferencvárosi Torna Club, vagy röviden FTC budapesti sportegyesület és labdarúgócsapat Budapest IX. kerületében. 1899-es alapítása óta 33 alkalommal avatták magyar bajnokká, 1975-ben a második helyet szerezte meg a kupagyőztesek Európa-kupájában.'),
 ('honved.jpg', 'Budapest Honvéd FC', 'A Budapest Honvéd FC Magyarország egyik legismertebb labdarúgócsapata Budapest XIX. kerületéből. A kispesti klub jelenleg a magyar labdarúgó-bajnokság első osztályában szerepel. Az egyesületet 1909-ben Kispesti AC néven hozták létre eredetileg.'),
-('mtk.jpeg', 'Magyar Testgyakorlók Köre (MTK)', 'Az MTK a 20. század elejétől fogva a budapesti nagy klubok egyikeként mindig meghatározó szerepet játszott a hazai labdarúgásban. Kupaaranyérmek számát tekintve a Ferencvárosi TC után a második legeredményesebb szereplője a magyar labdarúgó-bajnokságnak.'),
-('ujpest.jpg', 'Újpest FC', 'Az Újpest FC a második legrégebben alapított magyar sportegyesület labdarúgócsapata, melynek székhelye, Budapest IV. kerülete, tehát Újpest. A lila-fehérben szereplő csapat 20-szoros magyar bajnok, 21-szeres magyar bajnoki második helyezett.'),
-('puskas.jpg', 'Puskás Akadémia FC', 'A Puskás Akadémia FC (Videoton-Puskás Akadémia) egy felcsúti székhelyű labdarúgóklub. Bár független egyesület, 2012-ig a Videoton második csapata volt. Először a 2013–2014-es szezonban szerepelt az NB I-ben, 2017 óta újra ebben a bajnokságban játszik.'),
+('fradi.jpg', 'Ferencváros', 'A Ferencvárosi Torna Club, vagy röviden FTC budapesti sportegyesület és labdarúgócsapat Budapest IX. kerületében. 1899-es alapítása óta 33 alkalommal avatták magyar bajnokká, 1975-ben a második helyet szerezte meg a kupagyőztesek Európa-kupájában.'),
 ('kisvarda.jpg', 'Kisvárda FC', 'A Kisvárda FC Kisvárda labdarúgócsapata, mely jelenleg Kisvárda Master Good néven a magyar élvonalban szerepel. A klubot 1911-ben hozták létre KSE (Kisvárdai Sport Egyesület) néven, azóta szerepelt jó pár névvel.'),
+('mtk.jpeg', 'Magyar Testgyakorlók Köre (MTK)', 'Az MTK a 20. század elejétől fogva a budapesti nagy klubok egyikeként mindig meghatározó szerepet játszott a hazai labdarúgásban. Kupaaranyérmek számát tekintve a Ferencvárosi TC után a második legeredményesebb szereplője a magyar labdarúgó-bajnokságnak.'),
+('mezokovesd.jpg', 'Mezőkövesd Zsóry FC', 'A Mezőkövesdi SE (szponzorált nevén, a felnőtt csapat: Mezőkövesd Zsóry FC) magyar labdarúgóklub Mezőkövesd városából. Jelenleg az NB I-ben szerepel.'),
+('paks.jpg', 'Paks FC', 'A Paksi FC jelenleg a magyar labdarúgó-bajnokság első osztályában szerepel. Rendszeres tagjai a bajnokságnak. A csapat legnagyobb sikere, hogy 2011-ben megnyerte a Ligakupát, valamint a 2010-11 NB I-es bajnokságban ezüstérmes lett.'),
+('puskas.jpg', 'Puskás Akadémia FC', 'A Puskás Akadémia FC (Videoton-Puskás Akadémia) egy felcsúti székhelyű labdarúgóklub. Bár független egyesület, 2012-ig a Videoton második csapata volt. Először a 2013–2014-es szezonban szerepelt az NB I-ben, 2017 óta újra ebben a bajnokságban játszik.'),
 ('soroksar.jpg', 'Soroksár SC', 'Az 1999-ben alapított Soroksár SC egy budapesti magyar labdarúgócsapat, mely utódja az 1933–1934-es magyar labdarúgókupa kupagyőzelmet szerző Soroksári AC-nak . Jelenleg a NB II-ben szerepel.'),
 ('haladas.jpg', 'Szombathelyi Haladás', 'A Szombathelyi Haladás VSE 1919-ben alakult szombathelyi labdarúgóklub. A labdarúgó-bajnokság másodosztályának tagja. Legnagyobb sikere egy magyar bajnoki bronzérem (2008–09), valamint három Magyar Kupa-ezüstérem. '),
+('ujpest.jpg', 'Újpest FC', 'Az Újpest FC a második legrégebben alapított magyar sportegyesület labdarúgócsapata, melynek székhelye, Budapest IV. kerülete, tehát Újpest. A lila-fehérben szereplő csapat 20-szoros magyar bajnok, 21-szeres magyar bajnoki második helyezett.'),
 ('vasas.jpg', 'Vasas SC', 'A Vasas FC vagy röviden Vasas nagy múltú magyar élvonalbeli labdarúgócsapat Budapest XIII. kerületéből. Története során hat alkalommal nyert magyar bajnoki címet, négy alkalommal pedig kupagyőztes volt.'),
-('paks.jpg', 'Paks FC', 'A Paksi FC jelenleg a magyar labdarúgó-bajnokság első osztályában szerepel. Rendszeres tagjai a bajnokságnak. A csapat legnagyobb sikere, hogy 2011-ben megnyerte a Ligakupát, valamint a 2010-11 NB I-es bajnokságban ezüstérmes lett.'),
-('mezokovesd.jpg', 'Mezőkövesd Zsóry FC', 'A Mezőkövesdi SE (szponzorált nevén, a felnőtt csapat: Mezőkövesd Zsóry FC) magyar labdarúgóklub Mezőkövesd városából. Jelenleg az NB I-ben szerepel.'),
 ('zte.png', 'Zalaegerszegi TE FC', 'A Zalaegerszegi TE FC magyar labdarúgócsapat. A 2001–2002-es NB I-es szezon bajnoka.');
 
 -- --------------------------------------------------------
@@ -70,8 +70,9 @@ CREATE TABLE `csapat_parositas` (
 --
 
 INSERT INTO `csapat_parositas` (`hazai_cs`, `idegen_cs`, `hazai_sz`, `dontetlen_sz`, `idegen_sz`) VALUES
-('Ferencváros', 'Budapest Honvéd FC', '1', '2', '3'),
-('Kisvárda FC', 'Soroksár SC', '1', '2', '3');
+('Kisvárda FC', 'Soroksár SC', '1', '2', '3'),
+('Budapest Honvéd FC', 'Ferencváros', '1', '2', '3'),
+('Soroksár SC', 'Mezőkövesd Zsóry FC', '1.5', '6', '4');
 
 -- --------------------------------------------------------
 
@@ -131,46 +132,6 @@ INSERT INTO `eredmenyek` (`vegeredmeny`, `idopont`, `hazai`, `idegen`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tábla szerkezet ehhez a táblához `forrasok`
---
-
-CREATE TABLE `forrasok` (
-  `csapat` varchar(255) DEFAULT NULL,
-  `eredmeny` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
-
---
--- A tábla adatainak kiíratása `forrasok`
---
-
-INSERT INTO `forrasok` (`csapat`, `eredmeny`) VALUES
-('https://hu.wikipedia.org/wiki/Puskás_Akadémia_FC', 'https://www.eredmenyek.com/csapat/puskas-akademia/2m24xZpe/'),
-('https://kisvardafc.hu/', 'https://www.eredmenyek.com/csapat/kisvarda-fc/W8WY1Eze/'),
-('https://hu.wikipedia.org/wiki/Soroksár_SC', 'https://www.eredmenyek.com/csapat/soroksar/vTCIIJrC/eredmenyek/'),
-('www.haladas.hu', 'https://www.eredmenyek.com/csapat/haladas/C6prpoL8/eredmenyek/'),
-('https://hu.wikipedia.org/wiki/Vasas_SC_(labdarúgás)', 'https://www.eredmenyek.com/csapat/vasas/Eusk3D88/eredmenyek/'),
-('https://hu.wikipedia.org/wiki/Paksi_FC', 'https://www.eredmenyek.com/csapat/paks/0rhLtCWr/'),
-('https://hu.wikipedia.org/wiki/Ferencvárosi_TC_(labdarúgás)', 'https://www.eredmenyek.com/csapat/ferencvarosi-tc/pKS9M7R7/'),
-('https://hu.wikipedia.org/wiki/Budapest_Honvéd_FC', 'https://www.eredmenyek.com/csapat/honved-fc/fHXrBYWe/'),
-('https://hu.wikipedia.org/wiki/MTK_Budapest_FC', 'https://www.eredmenyek.com/csapat/mtk-budapest/ppX6bEHk/'),
-('https://hu.wikipedia.org/wiki/Újpest_FC', 'https://www.eredmenyek.com/csapat/ujpest/02x8YFgF/'),
-('https://hu.wikipedia.org/wiki/Zalaegerszegi_TE_FC', 'https://www.eredmenyek.com/csapat/zalaegerszeg/r7sQuWok/'),
-('https://hu.wikipedia.org/wiki/Mezőkövesd_Zsóry_FC', 'https://www.eredmenyek.com/csapat/mezokovesd/Wl17PM6a/');
-
--- --------------------------------------------------------
-
---
--- Tábla szerkezet ehhez a táblához `informacios_forrasok`
---
-
-CREATE TABLE `informacios_forrasok` (
-  `kepek` varchar(255) DEFAULT NULL,
-  `informaciok` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
-
--- --------------------------------------------------------
-
---
 -- Tábla szerkezet ehhez a táblához `kredit_vetel`
 --
 
@@ -225,10 +186,20 @@ INSERT INTO `registered` (`username`, `password`, `email`, `eletkor`, `credit`, 
 
 CREATE TABLE `uzenetek` (
   `id` int(11) NOT NULL,
+  `uzenet` varchar(255) DEFAULT NULL,
   `felhasznaloi_nev` varchar(255) DEFAULT NULL,
-  `email_cim` varchar(255) DEFAULT NULL,
-  `uzenet` varchar(255) DEFAULT NULL
+  `email_cim` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+--
+-- A tábla adatainak kiíratása `uzenetek`
+--
+
+INSERT INTO `uzenetek` (`id`, `uzenet`, `felhasznaloi_nev`, `email_cim`) VALUES
+(6, 'xd', 'valami2', 'valami2@valami2.hu'),
+(7, 'xddd', 'valami2', 'valami2@valami2.hu'),
+(8, 'minden is', 'valami2', 'valami2@valami2.hu'),
+(9, 'szopatsz', 'valami2', 'valami2@valami2.hu');
 
 -- --------------------------------------------------------
 
@@ -237,15 +208,27 @@ CREATE TABLE `uzenetek` (
 --
 
 CREATE TABLE `valaszok` (
-  `id` int(11) NOT NULL,
   `valasz` varchar(255) DEFAULT NULL,
   `vasarolt_mar` mediumint(11) DEFAULT NULL,
   `felhasznaloiId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
 --
+-- A tábla adatainak kiíratása `valaszok`
+--
+
+INSERT INTO `valaszok` (`valasz`, `vasarolt_mar`, `felhasznaloiId`) VALUES
+('semmit', 0, 3);
+
+--
 -- Indexek a kiírt táblákhoz
 --
+
+--
+-- A tábla indexei `csapatok`
+--
+ALTER TABLE `csapatok`
+  ADD PRIMARY KEY (`csapatnev`);
 
 --
 -- A tábla indexei `kredit_vetel`
@@ -265,15 +248,12 @@ ALTER TABLE `registered`
 -- A tábla indexei `uzenetek`
 --
 ALTER TABLE `uzenetek`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `felhasznaloi_nev` (`felhasznaloi_nev`),
-  ADD UNIQUE KEY `email_cim` (`email_cim`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- A tábla indexei `valaszok`
 --
 ALTER TABLE `valaszok`
-  ADD PRIMARY KEY (`id`),
   ADD KEY `felhasznaloiId` (`felhasznaloiId`);
 
 --
@@ -290,13 +270,13 @@ ALTER TABLE `kredit_vetel`
 -- AUTO_INCREMENT a táblához `registered`
 --
 ALTER TABLE `registered`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT a táblához `uzenetek`
 --
 ALTER TABLE `uzenetek`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Megkötések a kiírt táblákhoz

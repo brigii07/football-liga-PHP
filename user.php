@@ -28,6 +28,7 @@ $result = mysqli_query($connection, $sql_query);
             width: 150px;
         }
     </style>
+
     <div class="vl">
         <div class="container py-5">
             <div class="row">
@@ -54,19 +55,19 @@ $result = mysqli_query($connection, $sql_query);
                             if ($_SESSION['user']['admin'] == 1) {
                                 echo '<div class="d-flex justify-content-center mb-2">
                             <form action="kozelgo_meccs.php">
-                                <button type="submit" class="btn btn-primary">Közelgő meccs kijelölése</button>
+                                <button type="submit" class="btn btn-dark">Közelgő meccs kijelölése</button>
                             </form>
                             <form action="meccs_lejatszasa.php">
-                                <button type="submit" class="btn btn-outline-primary ms-1">Meccs lejátszása</button>
+                                <button type="submit" class="btn btn-outline-dark ms-1">Meccs lejátszása</button>
                             </form>
                         </div>';
                             } else {
                                 echo '<div class="d-flex justify-content-center mb-2">
                             <form action="fogadas.php">
-                                <button type="submit" class="btn btn-primary">Fogadás</button>
+                                <button type="submit" class="btn btn-dark">Fogadás</button>
                             </form>
                             <form action="credit.php">
-                                <button type="submit" class="btn btn-outline-primary ms-1">Credit vétel</button>
+                                <button type="submit" class="btn btn-outline-dark ms-1">Credit vétel</button>
                             </form> 
                         </div>';
                             }
@@ -131,9 +132,17 @@ $result = mysqli_query($connection, $sql_query);
                                         echo '<p class="text-muted mb-0">Adminként nincs lehetőséged credit vásárlásra.</p>';
                                     } else {
                                         if ($_SESSION['user']['credit_vetel'] == 0) {
-                                            echo '<p class="text-muted mb-0">3 lehetőséged van credit vásárlásra.</p>';
-                                        } elseif ($_SESSION['user']['credit_vetel'] == 3) {
-                                            echo '<p class="text-muted mb-0">Már nincs lehetőséged venni plusz creditet.</p>';
+                                            echo '<p class="text-muted mb-0">3 lehetőséged van credit igénylésre.</p>';
+                                        }
+                                        elseif($_SESSION['user']['credit_vetel'] == 1)
+                                        {
+                                            echo '<p class="text-muted mb-0">2 lehetőséged van credit igénylésre.</p>';
+                                        }
+                                        elseif ($_SESSION['user']['credit_vetel'] == 2) {
+                                            echo '<p class="text-muted mb-0">1 lehetőséged van credit igénylésre.</p>';
+                                        }
+                                         elseif ($_SESSION['user']['credit_vetel'] == 3) {
+                                            echo '<p class="text-muted mb-0">Már nincs lehetőséged igényelni plusz creditet.</p>';
                                         }
                                     }
                                     ?>
@@ -158,6 +167,7 @@ $result = mysqli_query($connection, $sql_query);
                         </div>
                     </div>
                 </div>
+                
                 <div class="col-1">
 
                 </div>

@@ -37,7 +37,7 @@ if (isset($_POST['submit'])) {
         mysqli_query($connection, $update_query);
         }
 
-        header('Location: ../user.php');
+        header('Location: ../credit.php');
     }
 } else {
     /* header('Location: ../credit.php'); */

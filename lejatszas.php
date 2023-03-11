@@ -1,3 +1,4 @@
+
 <?php require_once('header.php') ?>
 <?php
 
@@ -29,8 +30,8 @@ $result = mysqli_query($connection, $sql_query);
   .kartya {
     margin-top: 10px;
     position: absolute;
-    left: 105px;
-    width: 600px;
+    left: 175px;
+    width: 480px;
   }
 
   .kartya2 {
@@ -40,31 +41,64 @@ $result = mysqli_query($connection, $sql_query);
   }
 </style>
 
+
 <div class="vl">
 
-  <?php
-  if ($_SESSION['user']['admin'] == 0) {
+
+<?php
+if($_SESSION['user']['admin'] == 1)
+{
     $sql = $connection->query('SELECT * FROM csapat_parositas');
+
     echo '<div class="kartya">
-                    <div class="card mb-4">
-                       <div class="card-body text-center">
-                 <h5 class="my-3">Fogadásra alkalmas meccsek</h5>
-                 <div class="d-flex justify-content-center mb-2">
-                                         </div>';
+      <div class="card mb-4">
+         <div class="card-body text-center">
+   <h5 class="my-3">Lejátszásra váró meccsek</h5>
+   <div class="d-flex justify-content-center mb-2">
+                           </div>';
+
+    while ($row = mysqli_fetch_assoc($result)) {
+
+      echo '
+        <hr>        
+          <div class="row">
+              
+          <div class="col-sm-12">
+              <select>
+              <option value="' . $row['hazai_idegen_cs'] . '">' . $row['hazai_idegen_cs'] . '</option>
+              </select>
+          </div>
+          
+              </div>
+        <hr>';
+    }
+    echo ' <form method="POST" action="lejatszas.php">
+    <button class="btn btn-dark">Meccs lejátszása</button>
+    </form>
+    </div>
+        </div>
+       </div>';
+      }
+    ?>
+  </select>
+
+
+
+  <!-- <?php
+  if ($_SESSION['user']['admin'] == 1) {
+    $sql = $connection->query('SELECT * FROM csapat_parositas');
+
 
     while ($row = $sql->fetch_array()) {
       echo '
-        <hr>
-                     
+        <hr>        
           <div class="row">
 
               <div class="col-sm-6">
-                 <p class="mb-0">' . $row['hazai_idegen_cs'] . '</p>
+                 <p class="mb-0">' . $row['hazai_cs'] . '</p>
               </div>
               <div class="col-sm-6">
-              <form method="POST" action="fogadas_adatok.php">
-                 <button class="btn btn-dark" type="submit" id="' . $row['hazai_idegen_cs'] . '" name="' . $row['hazai_idegen_cs'] . '">Fogadj erre</button>
-              </form>
+                 <p class="mb-0">' . $row['idegen_cs'] . '</p>
               </div>
           </div>
         <hr>';
@@ -73,17 +107,15 @@ $result = mysqli_query($connection, $sql_query);
         </div>
        </div>';
   }
-  ?>
+  ?> -->
 
 
   <div class="vertical"></div>
-  
 </div>
 
 
 
 <div class="vl"></div>
-
 
 
 <?php require_once('footer.php') ?>

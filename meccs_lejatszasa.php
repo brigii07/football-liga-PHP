@@ -38,43 +38,55 @@ $result = mysqli_query($connection, $sql_query);
     right: 105px;
     width: 300px;
   }
-
 </style>
 
 
 <div class="vl">
 
-<!-- <label for="vendeg_cs" class="label1">Add meg a vendég csapat nevét:</label>
-    <select name="vendeg_cs" id="vendeg_cs" class="input1"> -->
-<!--     <?php
-      $serverAddress = 'localhost';
-      $username = 'root';
-      $password = '';
-      $databaseName = 'football_projekt';
-
-      $connection = mysqli_connect($serverAddress, $username, $password, $databaseName);
-
-      $sql_query = 'SELECT * FROM csapatok';
-      $result = mysqli_query($connection, $sql_query);
-
-      while ($row = mysqli_fetch_assoc($result)) {
-        echo '<option value="' . $row['csapatnev'] . '">' . $row['csapatnev'] . '</option>';
-       $idegencsapat = $row['csapatnev'];
-      }
-      ?>
-    </select> -->
-
-
 
 <?php
+if($_SESSION['user']['admin'] == 1)
+{
+    $sql = $connection->query('SELECT * FROM csapat_parositas');
+
+    echo '<div class="kartya">
+      <div class="card mb-4">
+         <div class="card-body text-center">
+   <h5 class="my-3">Lejátszásra váró meccsek</h5>
+   <div class="d-flex justify-content-center mb-2">
+                           </div>';
+
+    while ($row = mysqli_fetch_assoc($result)) {
+
+      echo '
+        <hr>        
+          <div class="row">
+              
+          <div class="col-sm-12">
+              <select>
+              <option value="' . $row['hazai_idegen_cs'] . '">' . $row['hazai_idegen_cs'] . '</option>
+              </select>
+          </div>
+          
+              </div>
+        <hr>';
+    }
+    echo ' <form method="POST" action="lejatszas.php">
+    <button class="btn btn-dark" type="submit" id="submit" name="submit">Meccs lejátszása</button>
+    </form>
+    </div>
+        </div>
+       </div>';
+      }
+    ?>
+  </select>
+
+
+
+  <!-- <?php
   if ($_SESSION['user']['admin'] == 1) {
     $sql = $connection->query('SELECT * FROM csapat_parositas');
-    echo '<div class="kartya">
-                    <div class="card mb-4">
-                       <div class="card-body text-center">
-                 <h5 class="my-3">Fogadásra alkalmassá tett meccsek</h5>
-                 <div class="d-flex justify-content-center mb-2">
-                                         </div>';
+
 
     while ($row = $sql->fetch_array()) {
       echo '
@@ -94,7 +106,7 @@ $result = mysqli_query($connection, $sql_query);
         </div>
        </div>';
   }
-  ?>
+  ?> -->
 
 
   <div class="vertical"></div>
