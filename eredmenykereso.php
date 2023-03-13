@@ -8,7 +8,8 @@ $databaseName = 'football_projekt';
 $connection = mysqli_connect($serverAddress, $username, $password, $databaseName);
 
 $query = $_GET['search'];
-$sql_hazai = "SELECT * FROM eredmenyek WHERE `hazai`LIKE '%$query%'";
+
+$sql_hazai = "SELECT * FROM eredmenyek WHERE `hazai` LIKE '%$query%' OR `idegen` LIKE '%$query%'";
 $result = mysqli_query($connection, $sql_hazai);
 
 

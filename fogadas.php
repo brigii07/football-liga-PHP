@@ -63,12 +63,16 @@ $result = mysqli_query($connection, $sql_query);
               </div>
               <div class="col-sm-6">
               <form method="POST" action="fogadas_adatok.php">
+              <input type="hidden" name="hazai_idegen_cs" value = "' . $row['hazai_idegen_cs'] . '">
+
                  <button class="btn btn-dark" type="submit" id="' . $row['hazai_idegen_cs'] . '" name="' . $row['hazai_idegen_cs'] . '">Fogadj erre</button>
               </form>
               </div>
           </div>
         <hr>';
     }
+
+    
     echo ' </div>
         </div>
        </div>';

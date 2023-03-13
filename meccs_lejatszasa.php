@@ -82,33 +82,6 @@ if($_SESSION['user']['admin'] == 1)
   </select>
 
 
-
-  <!-- <?php
-  if ($_SESSION['user']['admin'] == 1) {
-    $sql = $connection->query('SELECT * FROM csapat_parositas');
-
-
-    while ($row = $sql->fetch_array()) {
-      echo '
-        <hr>        
-          <div class="row">
-
-              <div class="col-sm-6">
-                 <p class="mb-0">' . $row['hazai_cs'] . '</p>
-              </div>
-              <div class="col-sm-6">
-                 <p class="mb-0">' . $row['idegen_cs'] . '</p>
-              </div>
-          </div>
-        <hr>';
-    }
-    echo ' </div>
-        </div>
-       </div>';
-  }
-  ?> -->
-
-
   <div class="vertical"></div>
 </div>
 
