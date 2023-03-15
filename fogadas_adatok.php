@@ -60,14 +60,21 @@ $result = mysqli_query($connection, $sql_query);
                      
           <div class="row">
 
-              <div class="col-sm-6">
+              <div class="col-sm-4">
                  <p class="mb-0">' . $row['hazai_idegen_cs'] . '</p>
               </div>
-              <div class="col-sm-6">
+              <div class="col-sm-4">
               <form method="POST" action="fogadas_adatok.php">
               <input type="hidden" name="hazai_idegen_cs" value = "' . $row['hazai_idegen_cs'] . '">
 
                  <button class="btn btn-dark" type="submit" id="' . $row['hazai_idegen_cs'] . '" name="' . $row['hazai_idegen_cs'] . '">Fogadj erre</button>
+              </form>
+              </div>
+              <div class="col-sm-4">
+              <form method="POST" action="meccs_menete.php">
+              <input type="hidden" name="hazai_idegen_cs" value = "' . $row['hazai_idegen_cs'] . '">
+
+                 <button class="btn btn-dark" type="submit" id="' . $row['hazai_idegen_cs'] . '" name="' . $row['hazai_idegen_cs'] . '">Nézd meg</button>
               </form>
               </div>
           </div>
@@ -84,7 +91,8 @@ $result = mysqli_query($connection, $sql_query);
   <?php
   if ($_SESSION['user']['admin'] == 0) {
     $sql = $connection->query('SELECT * FROM csapat_parositas WHERE hazai_idegen_cs="' . $_POST["hazai_idegen_cs"] . '"');
-    echo '<div class="kartya2">
+    
+    echo '<div class="kartya2"> <form method="POST" action="controllers/fogadas_leadas.php">
                     <div class="card mb-4">
                        <div class="card-body text-center">
                  <h5 class="my-3">A választott meccs adatai</h5>
@@ -110,22 +118,22 @@ $result = mysqli_query($connection, $sql_query);
       echo '
         <div class="row">
         <div class="col-sm-4">
-        <form>
+        
         <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Credit</label>
+            <input type="text" class="form-control" id="hazai" name="hazai">
+            <label for="hazai">Credit</label>
           </div>
         </div>
         <div class="col-sm-4">
         <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Credit</label>
+            <input type="text" class="form-control" id="dontetlen" name="dontetlen">
+            <label for="dontetlen">Credit</label>
           </div>
         </div>
         <div class="col-sm-4">
         <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Credit</label>
+            <input type="text" class="form-control" id="idegen" name="idegen">
+            <label for="idegen">Credit</label>
           </div>
         </div>
         </div>
@@ -133,7 +141,8 @@ $result = mysqli_query($connection, $sql_query);
       echo '
         <div class="row">
         <div class="col-12 text-center">
-        <button class="btn btn-dark">Fogadás</button>
+        <input type="hidden" name="hazai_idegen_cs" value = "' . $_POST['hazai_idegen_cs'] . '">
+        <button class="btn btn-dark" type="submit" id="submit" name="submit">Fogadás</button>
         </div>
         </form>
        </div>

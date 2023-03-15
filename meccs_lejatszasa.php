@@ -54,24 +54,24 @@ if($_SESSION['user']['admin'] == 1)
          <div class="card-body text-center">
    <h5 class="my-3">Lejátszásra váró meccsek</h5>
    <div class="d-flex justify-content-center mb-2">
-                           </div>';
+                           </div>
+                           <hr>
+                           <div class="row">  
+          <div class="col-sm-12">
+              <select>';
 
     while ($row = mysqli_fetch_assoc($result)) {
 
       echo '
-        <hr>        
-          <div class="row">
-              
-          <div class="col-sm-12">
-              <select>
-              <option value="' . $row['hazai_idegen_cs'] . '">' . $row['hazai_idegen_cs'] . '</option>
-              </select>
-          </div>
-          
-              </div>
-        <hr>';
+              <option value="' . $row['id'] . '">' . $row['hazai_idegen_cs'] . '</option>
+             ';
     }
-    echo ' <form method="POST" action="lejatszas.php">
+    echo ' </select>
+    </div>
+    
+        </div>
+  <hr>
+     <form method="POST" action="meccs_menete.php">
     <button class="btn btn-dark" type="submit" id="submit" name="submit">Meccs lejátszása</button>
     </form>
     </div>

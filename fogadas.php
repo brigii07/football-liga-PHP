@@ -58,14 +58,21 @@ $result = mysqli_query($connection, $sql_query);
                      
           <div class="row">
 
-              <div class="col-sm-6">
+              <div class="col-sm-4">
                  <p class="mb-0">' . $row['hazai_idegen_cs'] . '</p>
               </div>
-              <div class="col-sm-6">
+              <div class="col-sm-4">
               <form method="POST" action="fogadas_adatok.php">
               <input type="hidden" name="hazai_idegen_cs" value = "' . $row['hazai_idegen_cs'] . '">
 
                  <button class="btn btn-dark" type="submit" id="' . $row['hazai_idegen_cs'] . '" name="' . $row['hazai_idegen_cs'] . '">Fogadj erre</button>
+              </form>
+              </div>
+              <div class="col-sm-4">
+              <form method="POST" action="meccs_menete.php">
+              <input type="hidden" name="hazai_idegen_cs" value = "' . $row['hazai_idegen_cs'] . '">
+
+                 <button class="btn btn-dark" type="submit" id="' . $row['hazai_idegen_cs'] . '" name="' . $row['hazai_idegen_cs'] . '">Nézd meg</button>
               </form>
               </div>
           </div>
