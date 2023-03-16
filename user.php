@@ -231,13 +231,8 @@ $result = mysqli_query($connection, $sql_query);
                     </div>
 
                     <button type="submit" id="submit" name="submit" class="btn btn-dark btn-block mb-4">Elküldés</button>
-                </form>';
-                    if ($result1 != false) {
-                        echo '<form action="valasz_megtekintes.php">
-                       <button type="submit" id="submit" name="submit" class="btn btn-dark btn-block mb-4 kartya2">Beérkezett válasz</button>
-                       </form>';
-                    }
-                    echo '</div>
+                </form>
+                    </div>
             </div>
             </div>';
                 }
