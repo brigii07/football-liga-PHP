@@ -8,12 +8,10 @@ if (isset($_POST['submit'])) {
     $dontetlen_sz = mysqli_real_escape_string($connection, $_POST['dontetlen_sz']);
     $idegen_sz = mysqli_real_escape_string($connection, $_POST['idegen_sz']);
 
-    $ketto_csapat = $hazai_cs . ' - ' . $vendeg_cs;
-
     $check_query = "SELECT * FROM `registered` WHERE `admin` = 1;";
     $result = mysqli_query($connection, $check_query);
 
-    $query = "INSERT INTO `csapat_parositas`(`hazai_sz`, `dontetlen_sz`, `idegen_sz`, `hazai_idegen_cs`) VALUES (?,?,?,?)";
+    $query = "INSERT INTO `csapat_parositas`(`hazai_sz`, `dontetlen_sz`, `idegen_sz`, hazai_csapat, idegen_csapat) VALUES (?,?,?,?,?)";
     $statement = mysqli_stmt_init($connection);
 
     if ($hazai_cs != $vendeg_cs) {
@@ -24,7 +22,7 @@ if (isset($_POST['submit'])) {
             if (mysqli_stmt_prepare($statement, $query) == false) {
                 echo 'Az inicializálás nem működik.';
             } else {
-                mysqli_stmt_bind_param($statement, 'ssss', $hazai_sz, $dontetlen_sz, $idegen_sz, $ketto_csapat);
+                mysqli_stmt_bind_param($statement, 'sssss', $hazai_sz, $dontetlen_sz, $idegen_sz, $hazai_cs, $vendeg_cs);
                 mysqli_stmt_execute($statement);
             }
             header('Location: ../kozelgo_meccs.php');

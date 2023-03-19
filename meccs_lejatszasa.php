@@ -44,9 +44,8 @@ $result = mysqli_query($connection, $sql_query);
 <div class="vl">
 
 
-<?php
-if($_SESSION['user']['admin'] == 1)
-{
+  <?php
+  if ($_SESSION['user']['admin'] == 1) {
     $sql = $connection->query('SELECT * FROM csapat_parositas');
 
     echo '<div class="kartya">
@@ -58,12 +57,14 @@ if($_SESSION['user']['admin'] == 1)
                            <hr>
                            <div class="row">  
           <div class="col-sm-12">
-              <select>';
+          <form method="POST" action="meccs_menete.php">
+              <select name="meccs_id" id="meccs_id">';
 
-    while ($row = mysqli_fetch_assoc($result)) {
+    while ($row = mysqli_fetch_assoc($sql)) {
 
+      $parositas = $row['hazai_csapat']. " - ". $row["idegen_csapat"];
       echo '
-              <option value="' . $row['id'] . '">' . $row['hazai_idegen_cs'] . '</option>
+              <option value="' . $row['id'] . '">' . $parositas . '</option>
              ';
     }
     echo ' </select>
@@ -71,16 +72,14 @@ if($_SESSION['user']['admin'] == 1)
     
         </div>
   <hr>
-     <form method="POST" action="meccs_menete.php">
     <button class="btn btn-dark" type="submit" id="submit" name="submit">Meccs lejátszása</button>
     </form>
     </div>
         </div>
        </div>';
-      }
-    ?>
+  }
+  ?>
   </select>
-
 
   <div class="vertical"></div>
 </div>
