@@ -22,7 +22,11 @@ $result = mysqli_query($connection, $sql_hazai);
 <div class="vl">
     <div class="container">
         <div class="row">
-            <div class="col-3"></div>
+            <div class="col-3">
+
+               
+
+            </div>
             <div class="col-6">
                 <br>
                 <form action="controllers/credit_vetel.php" method="POST">

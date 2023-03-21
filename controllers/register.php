@@ -21,38 +21,31 @@ if (isset($_POST['submit'])) {
     $statement = mysqli_stmt_init($connection);
 
     if (empty($username) || empty($password) || empty($email) || empty($eletkor)) {
-        header('Location: ../register_form.php');
-        echo 'Minden adatot tölts ki!';
+        header('Location: ../register_form.php?errorures=true');
     } elseif (mysqli_num_rows($result) > 0) {
-        header('Location: ../register_form.php');
-        echo 'Ez az email cím már létezik.';
+        header('Location: ../register_form.php?errorlet=true');
     } elseif ($password != $password_confirm) {
-        header('Location: ../register_form.php');
-        echo 'A jelszavak nem egyeznek meg.';
+        header('Location: ../register_form.php?errornem=true');
     }
-    elseif(preg_match("@,.hu", $email))
+    elseif(preg_match($email, "@"))
     {
-        header('Location: ../register_form.php');
-        echo 'Az email cím nem megfelelő.';
+        header('Location: ../register_form.php?errormeg=true');
     } 
     elseif (strlen($password) && strlen($password_confirm) < 6) {
-        header('Location: ../register_form.php');
-        echo 'A jelszavad túl rövid, 6-nál több karaktert kell tartalmaznia.';
+        header('Location: ../register_form.php?errorrovid=true');
     } else {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         if (mysqli_stmt_prepare($statement, $query) == false) {
-            header('Location: ../register_form.php');
-            echo 'Az inicializálás nem működik.';
+            header('Location: ../register_form.php?errorin=true');
         } else {
             mysqli_stmt_bind_param($statement, 'sssssss', $username, $hashed_password, $email, $eletkor, $credit, $credit_vetel, $admin);
             mysqli_stmt_execute($statement);
         }
 
-        header('Location: ../login_form.php');
+        header('Location: ../login_form.php?success=true');
     }
 } else {
-    header('Location: ../register_form.php');
-    echo '403 error - Not authorized';
+    header('Location: ../register_form.php?error=true');
 }
 ?>

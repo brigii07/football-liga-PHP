@@ -55,25 +55,35 @@ $result = mysqli_query($connection, $sql_query);
     while ($row = $sql->fetch_array()) {
       echo '
         <hr>
-                     
+                      
           <div class="row">
 
               <div class="col-sm-4">
-                 <p class="mb-0">' . $row['hazai_idegen_cs'] . '</p>
+                 <p class="mb-0">' . $row['hazai_csapat'] . ' - '.$row['idegen_csapat'].' </p>
               </div>
               <div class="col-sm-4">
               <form method="POST" action="fogadas_adatok.php">
-              <input type="hidden" name="hazai_idegen_cs" value = "' . $row['hazai_idegen_cs'] . '">
+                  <input type="hidden" name="meccs" value = "' . $row['id'] . '">';
 
-                 <button class="btn btn-dark" type="submit" id="' . $row['hazai_idegen_cs'] . '" name="' . $row['hazai_idegen_cs'] . '">Fogadj erre</button>
-              </form>
+                  if (isset($row['idopont'])) { /* Ha már lejátszott meccs nem fogadhat de megnézheti */
+                    echo '<button disabled class="btn btn-dark" type="submit" id="submit" name="submit">Fogadj erre</button>';
+                  }
+                  else{
+                    echo '<button class="btn btn-dark" type="submit" id="submit" name="submit">Fogadj erre</button>';
+                  }
+        echo '</form>
               </div>
               <div class="col-sm-4">
-              <form method="POST" action="meccs_menete.php">
-              <input type="hidden" name="hazai_idegen_cs" value = "' . $row['hazai_idegen_cs'] . '">
+                <form method="POST" action="szimulalt_eredmenyek.php">
+                  <input type="hidden" name="meccs" value = "' . $row['id'] . '">';
+                  if (isset($row['idopont'])) { /* Ha már lejátszott meccs megnézheti de nem fogadhat. */
+                    echo '<button class="btn btn-dark" type="submit" id="submit" name="submit">Nézd meg</button>';
+                  }
+                  else {
+                    echo '<button disabled class="btn btn-dark" type="submit" id="submit" name="submit">Nézd meg</button>';
+                  }
 
-                 <button class="btn btn-dark" type="submit" id="' . $row['hazai_idegen_cs'] . '" name="' . $row['hazai_idegen_cs'] . '">Nézd meg</button>
-              </form>
+              echo '</form>
               </div>
           </div>
         <hr>';

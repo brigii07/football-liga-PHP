@@ -71,6 +71,9 @@ session_start();
                     <li class="nav-item">
                         <a class="nav-link" href="eredmenyek.php">Meccseredmények</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="szimulalt_eredmenyek_valaszto.php">Szimulált eredmények</a>
+                    </li>
                 </ul>
                 <nav class="navbar navbar-light bg-light">
                 <a class="navbar-brand" href="index.php">

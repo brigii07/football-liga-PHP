@@ -9,6 +9,7 @@ if (isset($_POST['submit'])) {
     $result = mysqli_query($connection, $query);
     $csapatParositas = mysqli_fetch_assoc($result);
 
+
     /* CSAPATOK GLOBALS */
     $hazai_csapat = $csapatParositas['hazai_csapat'];
     $idegen_csapat = $csapatParositas['idegen_csapat'];
@@ -24,6 +25,7 @@ if (isset($_POST['submit'])) {
     /* JÁTÉKOS GLOBALAS */
     $hazai_jatekosok = array();
     $idegen_jatekosok = array();
+
 
 
     while ($row = mysqli_fetch_assoc($result_hazai)) {
@@ -70,7 +72,7 @@ if (isset($_POST['submit'])) {
         }
 
         /* A kezdés után legyen egy labdavezetés legalább. */
-        if ($i == 1 || $i == 10) {
+        if ($i == 1 || $i == 11) {
             $event = 0;
         } else {
             $event = rand(0, 4);
@@ -82,14 +84,75 @@ if (isset($_POST['submit'])) {
         if ($i == 9) { /* A kilencedik esemény után növelem a félidőt. */
             $felido++;
         }
+
+        if ($i == $time * 2 - 1) {
+            $lefujva = "A bíró a szájához emeli a sípot, és a meccs véget ér. A végeredmény: " . $hazai_score . " - " . $idegen_score;
+            array_push($esemenyek, $lefujva);
+        }
     }
 
-    /* var_dump($esemenyek); */
     /* ITT KELL MAJD ADATBÁZISBA FELTÖLTENI AZ ESEMÉNYEK ARRAY TARTALMÁT. */
-   /*  foreach ($esemenyek as $key => $value) {
-        $insert_query = "INSERT INTO `meccs_lejatszas`(`meccsid`, `esemenyek`) VALUES('$id', '$value')";
-        mysqli_query($connection, $insert_query);
-    } */
+
+    foreach ($esemenyek as $key => $value) {
+        $sql = "INSERT INTO `meccs_lejatszas`( `meccsid`, `esemenyek`) VALUES ($id, '$value')";
+        mysqli_query($connection, $sql);
+    }
+
+
+    /* A fogadás eredmény megállapítása */
+    /* Ha 1 => Hazai, 2 => Döntetlen, 3 => Idegen  */
+    $fogadas_eredmeny;
+    if ($hazai_score > $idegen_score) {
+        $fogadas_eredmeny = 1;
+    } else if ($idegen_score > $hazai_score) {
+        $fogadas_eredmeny = 3;
+    } else {
+        $fogadas_eredmeny = 2;
+    }
+
+
+    /* Az eredmények feltöltése a csapatpárosítás táblába */
+
+    $date = date('Y-m-d'); //Meccs dátuma, adott nap.
+    $eredmeny_query = "UPDATE `csapat_parositas` SET `eredmeny_hazai`='$hazai_score',`eredmeny_idegen`='$idegen_score',`idopont`='$date', `fogadas_eredmeny` = $fogadas_eredmeny WHERE id = $id";
+    mysqli_query($connection, $eredmeny_query);
+
+    /* Nyeremények megállapítása és kiosztása */
+
+
+    $fogadasok_query = "SELECT * FROM fogadas WHERE meccsId = $id";
+    $fogadasok_result = mysqli_query($connection, $fogadasok_query);
+
+    /* Meccs szorzói */
+    $idegen_szorzo  = "SELECT idegen_sz FROM csapat_parositas WHERE id = '$id'";
+    $hazai_szorzo  = "SELECT hazai_sz FROM csapat_parositas WHERE id = '$id'";
+    $dontetlen_szorzo  = "SELECT dontetlen_sz FROM csapat_parositas WHERE id = '$id'";
+
+    $result_idegen = (int)mysqli_fetch_row(mysqli_query($connection, $idegen_szorzo))[0];
+    $result_hazai = (int)mysqli_fetch_row(mysqli_query($connection, $hazai_szorzo))[0];
+    $result_dontetlen = (int)mysqli_fetch_row(mysqli_query($connection, $dontetlen_szorzo))[0];
+    /*  */
+
+    while ($row = mysqli_fetch_assoc($fogadasok_result)) {
+        $user_id = $row['felhasznaloId'];
+        $credit = $row['credit'];
+
+        $nyeremeny_osszeg;
+
+        if ($fogadas_eredmeny == $row['fogadas_tipusa']) {
+            $nyeremeny_osszeg = $row['credit'];
+        }
+        else {
+            $nyeremeny_osszeg = 0; /* Nem nyert, korábban a fogadás kezelésénél már elvettük tőle a pénzt. */
+        }
+
+        $update_jatekos_query = "UPDATE registered SET credit = (credit + $nyeremeny_osszeg) WHERE id = ".$row['felhasznaloId']; 
+        mysqli_query($connection, $update_jatekos_query);
+
+        $sql_nyeremeny = 'INSERT INTO nyeremeny (nyeremeny, felhasznaloId, fogadasId) VALUES ('. $nyeremeny_osszeg.','. $row["felhasznaloId"].','. $row["id"].')';
+        var_dump($sql_nyeremeny);
+        mysqli_query($connection, $sql_nyeremeny);
+    }
 }
 
 ?>
@@ -162,9 +225,20 @@ function Passz()
     $player_in_event = rand(1, 10); /* Melyik játékoshoz kerül a labda */
 
     if ($GLOBALS['csapatnal_a_labda'] == $GLOBALS['hazai_csapat']) {
-        $GLOBALS['playernel_a_labda'] = $GLOBALS['hazai_jatekosok'][$player_in_event];
+        /* Újrasorsolás, amíg olyan játékosnak nem akar passzolni, aki nem saját maga */
+        if ($GLOBALS['playernel_a_labda']['jatekos_nev'] == $GLOBALS['hazai_jatekosok'][$player_in_event]['jatekos_nev']) {
+            $player_in_event = rand(1, 10);
+            $GLOBALS['playernel_a_labda'] = $GLOBALS['hazai_jatekosok'][$player_in_event];
+        } else {
+            $GLOBALS['playernel_a_labda'] = $GLOBALS['hazai_jatekosok'][$player_in_event];
+        }
     } else {
-        $GLOBALS['playernel_a_labda'] = $GLOBALS['idegen_jatekosok'][$player_in_event];
+        if ($GLOBALS['playernel_a_labda']['jatekos_nev'] == $GLOBALS['idegen_jatekosok'][$player_in_event]['jatekos_nev']) {
+            $player_in_event = rand(1, 10);
+            $GLOBALS['playernel_a_labda'] = $GLOBALS['idegen_jatekosok'][$player_in_event];
+        } else {
+            $GLOBALS['playernel_a_labda'] = $GLOBALS['idegen_jatekosok'][$player_in_event];
+        }
     }
 
 
@@ -184,17 +258,27 @@ function KapuraLoves()
 
             $GLOBALS['hazai_score']++;
 
+            /* Mielőtt átállítom a birtoklásokat kiíratom, hogy ki mit csinált. */
+            $string_to_return = $GLOBALS['playernel_a_labda']['jatekos_nev'] . " vezeti a labdát. Kikerüli a védőt! ÉÉÉÉS... GÓÓÓÓL. Az eredmény: " . $GLOBALS['hazai_score'] . " - " . $GLOBALS['idegen_score'] . " A " . $GLOBALS['csapatnal_a_labda'] . " csalódottan feláll a kezdéshez.";
+
             $player_in_event = rand(1, 10); /* Melyik játékoshoz kerül a labda */
             $GLOBALS['csapatnal_a_labda'] = $GLOBALS['idegen_csapat'];
             $GLOBALS['playernel_a_labda'] = $GLOBALS['idegen_jatekosok'][$player_in_event];
 
-            return $GLOBALS['playernel_a_labda']['jatekos_nev'] . " vezeti a labdát. Kikerüli a védőt! ÉÉÉÉS... GÓÓÓÓL. Az eredmény: " . $GLOBALS['hazai_score'] . " - " . $GLOBALS['idegen_score'] . " A " . $GLOBALS['csapatnal_a_labda'] . " csalódottan feláll a kezdéshez." . $GLOBALS['playernel_a_labda']['jatekos_nev'] . " vezeti a labdát.";;
+            /* Hozzárakom, hogy kinél van most a labda a kezdés után. */
+            $string_to_return .= $GLOBALS['playernel_a_labda']['jatekos_nev'] . " vezeti a labdát.";
+
+            return $string_to_return;
         } else {
+
+            $string_to_return = $GLOBALS['playernel_a_labda']['jatekos_nev'] . " vezeti a labdát. Kikerüli a védőt! ÉÉÉÉS... MELLÉ. " . $GLOBALS['kapus_idegen']['jatekos_nev'] . " kirúgáshoz készülődik. ";
+
             $player_in_event = rand(1, 10); /* Melyik játékoshoz kerül a labda */
             $GLOBALS['csapatnal_a_labda'] = $GLOBALS['idegen_csapat'];
             $GLOBALS['playernel_a_labda'] = $GLOBALS['idegen_jatekosok'][$player_in_event];
 
-            return  $GLOBALS['playernel_a_labda']['jatekos_nev'] . " vezeti a labdát. Kikerüli a védőt! ÉÉÉÉS... MELLÉ. " . $GLOBALS['kapus_idegen']['jatekos_nev'] . " kirúgáshoz készülődik. " . $GLOBALS['playernel_a_labda']['jatekos_nev'] . " szerzi meg a labdát.";
+            $string_to_return .= $GLOBALS['playernel_a_labda']['jatekos_nev'] . " szerzi meg a labdát.";
+            return   $string_to_return;
         }
     } else {
         $lovo_random = rand(1, 10);
@@ -204,17 +288,26 @@ function KapuraLoves()
 
             $GLOBALS['idegen_score']++;
 
+            $string_to_return = $GLOBALS['playernel_a_labda']['jatekos_nev'] . " vezeti a labdát. Kikerüli a védőt! ÉÉÉÉS... GÓÓÓÓL. Az eredmény: " . $GLOBALS['hazai_score'] . " - " . $GLOBALS['idegen_score'] . " A " . $GLOBALS['csapatnal_a_labda'] . " csalódottan feláll a kezdéshez. ";
+
             $player_in_event = rand(1, 10); /* Melyik játékoshoz kerül a labda */
             $GLOBALS['csapatnal_a_labda'] = $GLOBALS['hazai_csapat'];
             $GLOBALS['playernel_a_labda'] = $GLOBALS['hazai_jatekosok'][$player_in_event];
 
-            return $GLOBALS['playernel_a_labda']['jatekos_nev'] . " vezeti a labdát. Kikerüli a védőt! ÉÉÉÉS... GÓÓÓÓL. Az eredmény: " . $GLOBALS['hazai_score'] . " - " . $GLOBALS['idegen_score'] . " A " . $GLOBALS['csapatnal_a_labda'] . " csalódottan feláll a kezdéshez." . $GLOBALS['playernel_a_labda']['jatekos_nev'] . " vezeti a labdát.";;
+            $string_to_return .= $GLOBALS['playernel_a_labda']['jatekos_nev'] . " vezeti a labdát.";
+
+            return $string_to_return;
         } else {
+
+            $string_to_return = $GLOBALS['playernel_a_labda']['jatekos_nev'] . " vezeti a labdát. Kikerüli a védőt! ÉÉÉÉS... MELLÉ. " . $GLOBALS['kapus_hazai']['jatekos_nev'] . " kirúgáshoz készülődik. ";
+
             $player_in_event = rand(1, 10); /* Melyik játékoshoz kerül a labda */
             $GLOBALS['csapatnal_a_labda'] = $GLOBALS['hazai_csapat'];
             $GLOBALS['playernel_a_labda'] = $GLOBALS['hazai_jatekosok'][$player_in_event];
 
-            return  $GLOBALS['playernel_a_labda']['jatekos_nev'] . " vezeti a labdát. Kikerüli a védőt! ÉÉÉÉS... MELLÉ. " . $GLOBALS['kapus_hazai']['jatekos_nev'] . " kirúgáshoz készülődik. " . $GLOBALS['playernel_a_labda']['jatekos_nev'] . " szerzi meg a labdát.";
+            $string_to_return .= $GLOBALS['playernel_a_labda']['jatekos_nev'] . " szerzi meg a labdát.";
+
+            return $string_to_return;
         }
     }
 }
@@ -229,7 +322,7 @@ function Labdaszerzes()
         $szerelni_akaro = $GLOBALS['idegen_jatekosok'][$szerelo_random];
         /* Ha gyorsabb a támadó mint a védő védekezése, akkor marad a labda különben elmegy */
         if ($GLOBALS['playernel_a_labda']['sebesseg'] * $vezeto_random >= $szerelni_akaro['vedekezes'] * $szerelo_random) {
-            return $szerelni_akaro['jatekos_nev'] . " megpróbálja elvenni a labdát " . $GLOBALS['playernel_a_labda'] . "-től, de az kicselezi és fut tovább.";
+            return $szerelni_akaro['jatekos_nev'] . " megpróbálja elvenni a labdát " . $GLOBALS['playernel_a_labda']['jatekos_nev'] . "-től, de az kicselezi és fut tovább.";
         } else {
             $GLOBALS['csapatnal_a_labda'] = $GLOBALS['idegen_csapat'];
             $GLOBALS['playernel_a_labda'] = $szerelni_akaro;
@@ -238,11 +331,12 @@ function Labdaszerzes()
         }
     } else {
         $szerelni_akaro = $GLOBALS['hazai_jatekosok'][$szerelo_random];
+
         /* Ha gyorsabb a támadó mint a védő védekezése, akkor marad a labda különben elmegy */
         if ($GLOBALS['playernel_a_labda']['sebesseg'] * $vezeto_random >= $szerelni_akaro['vedekezes'] * $szerelo_random) {
-            return $szerelni_akaro['jatekos_nev'] . " megpróbálja elvenni a labdát " . $GLOBALS['playernel_a_labda'] . "-től, de az kicselezi és fut tovább.";
+            return $szerelni_akaro['jatekos_nev'] . " megpróbálja elvenni a labdát " . $GLOBALS['playernel_a_labda']['jatekos_nev'] . "-től, de az kicselezi és fut tovább.";
         } else {
-            $GLOBALS['csapatnal_a_labda'] = $GLOBALS['hazai_jatekosok'];
+            $GLOBALS['csapatnal_a_labda'] = $GLOBALS['hazai_csapat'];
             $GLOBALS['playernel_a_labda'] = $szerelni_akaro;
 
             return $szerelni_akaro['jatekos_nev'] . " sikeresen megszerezte a labdát és gyors ellentámadást indít.";

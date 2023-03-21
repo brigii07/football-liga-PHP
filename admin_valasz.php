@@ -70,7 +70,39 @@ $result = mysqli_query($connection, $sql_query);
                 </div>';
             }
             ?>
+
             <div class="col-6">
+                <?php 
+                 if (isset($_GET['erroruzen'])) {
+                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Hiba!</strong> Minden adatot tölts ki!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    ';
+                } elseif (isset($_GET['errorini'])) {
+                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Hiba!</strong> Az inicializálás nem működik.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>';
+                } elseif (isset($_GET['error'])) {
+                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Hiba!</strong> A hiba beazonosítatlan.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>';
+                }
+                elseif (isset($_GET['siker'])) {
+                  echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <strong>Üzenet elküldve!</strong> Az üzenet hibátlanul elküldésre került.
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>';
+              } 
+              elseif (isset($_GET['nincsem'])) {
+                echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Hiba!</strong> A címzett email címe helytelen.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>';
+            }
+                ?>
                 <div class="col mb-4">
                     <div class="card-body">
                         <p class="text-center"><b>Válaszüzenet</b></p>

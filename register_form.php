@@ -7,7 +7,42 @@
           <div class="card-body p-md-5">
             <div class="row justify-content-center" style="background-color: #BCC6CC;">
               <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-
+              <?php
+                if (isset($_GET['error'])) {
+                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Hiba!</strong>403 error - Not authorized
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    ';
+                } elseif (isset($_GET['errorures'])) {
+                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Hiba!</strong> Minden adatot tölts ki!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>';
+                } elseif (isset($_GET['errorlet'])) {
+                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Hiba!</strong> Ez az email cím már létezik.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>';
+                }
+                elseif (isset($_GET['errornem'])) {
+                  echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>Hiba!</strong> A jelszavak nem egyeznek meg.
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>';
+              }
+              elseif (isset($_GET['errormeg'])) {
+                echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Hiba!</strong> Az email cím nem megfelelő.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>';
+            }  elseif (isset($_GET['errorin'])) {
+              echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Hiba!</strong> Az inicializálás nem működik.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>';
+          }
+                ?>
                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Regisztráció</p>
 
                 <form class="mx-1 mx-md-4" method="POST" action="controllers/register.php">

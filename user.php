@@ -7,9 +7,11 @@ $databaseName = 'football_projekt';
 $connection = mysqli_connect($serverAddress, $username, $password, $databaseName);
 
 $sql_query = 'SELECT * FROM uzenetek';
-$query = 'SELECT * FROM admin_valasz';
-$result1 = mysqli_query($connection, $query);
 $result = mysqli_query($connection, $sql_query);
+
+/* Aktuális user adatok lekérése (fogadás utáni CR frissítés) */
+$userDataQuery = "SELECT * FROM registered WHERE id = ". $_SESSION['user']['id'];
+$userData = mysqli_fetch_assoc(mysqli_query($connection, $userDataQuery));
 
 ?>
 
@@ -114,7 +116,7 @@ $result = mysqli_query($connection, $sql_query);
                                         echo '<p class="text-muted mb-0">Nincs credit</p>';
                                     } else {
                                         if (isset($_SESSION['user'])) {
-                                            echo '<p class="text-muted mb-0">' . $_SESSION["user"]["credit"] . 'CR </p>';
+                                            echo '<p class="text-muted mb-0">' . $userData["credit"] . 'CR </p>'; /* Itt le kell kérni az adatbázisból, vagy fogadás után nem frissül csak ha újra bejelentkezik az ember */
                                         }
                                     }
                                     ?>
@@ -131,19 +133,24 @@ $result = mysqli_query($connection, $sql_query);
                                     if ($_SESSION['user']['admin'] == 1) {
                                         echo '<p class="text-muted mb-0">Adminként nincs lehetőséged credit vásárlásra.</p>';
                                     } else {
-                                        if ($_SESSION['user']['credit_vetel'] == 0) {
-                                            echo '<p class="text-muted mb-0">3 lehetőséged van credit igénylésre.</p>';
+                                        if (isset($_SESSION['user'])) {
+                                            (int)$credit_vetele = $userData["credit_vetel"];
+
+                                            if ($credit_vetele == 0) {
+                                                echo '<p class="text-muted mb-0">3 lehetőséged van credit igénylésre.</p>';
+                                            }
+                                            elseif($credit_vetele == 1)
+                                            {
+                                                echo '<p class="text-muted mb-0">2 lehetőséged van credit igénylésre.</p>';
+                                            }
+                                            elseif ($credit_vetele == 2) {
+                                                echo '<p class="text-muted mb-0">1 lehetőséged van credit igénylésre.</p>';
+                                            }
+                                             elseif ($credit_vetele == 3) {
+                                                echo '<p class="text-muted mb-0">Már nincs lehetőséged igényelni plusz creditet.</p>';
+                                            }
                                         }
-                                        elseif($_SESSION['user']['credit_vetel'] == 1)
-                                        {
-                                            echo '<p class="text-muted mb-0">2 lehetőséged van credit igénylésre.</p>';
-                                        }
-                                        elseif ($_SESSION['user']['credit_vetel'] == 2) {
-                                            echo '<p class="text-muted mb-0">1 lehetőséged van credit igénylésre.</p>';
-                                        }
-                                         elseif ($_SESSION['user']['credit_vetel'] == 3) {
-                                            echo '<p class="text-muted mb-0">Már nincs lehetőséged igényelni plusz creditet.</p>';
-                                        }
+                                       
                                     }
                                     ?>
                                 </div>
@@ -201,7 +208,7 @@ $result = mysqli_query($connection, $sql_query);
                     }
                     echo ' <div class="text-center">
                     <form action="admin_valasz.php">
-                       <button class="btn btn-dark">Válasz</button>
+                    <button class="btn btn-dark">Válasz</button>
                     <form>
                        </div>
                      </div>
@@ -235,6 +242,34 @@ $result = mysqli_query($connection, $sql_query);
                     </div>
             </div>
             </div>';
+            if (isset($_GET['errorures'])) {
+                echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Hiba!</strong> Minden adatot tölts ki!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                ';
+            } elseif (isset($_GET['errorh'])) {
+                echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Hiba!</strong> Ez az email cím hibás.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>';
+            } elseif (isset($_GET['errorin'])) {
+                echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Hiba!</strong> Az inicializálás nem működik.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>';
+            }
+            elseif (isset($_GET['success'])) {
+              echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Üzenet elküldve!</strong> Hamarosan felvesszük Önnel a kapcsolatot.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>';
+          } elseif (isset($_GET['errornem'])) {
+            echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Hiba!</strong> Az üzenetet nem tudtuk kézbesíteni.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>';
+        }
                 }
                 ?>
                 <div class="col-4"></div>

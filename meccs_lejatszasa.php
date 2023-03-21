@@ -46,7 +46,7 @@ $result = mysqli_query($connection, $sql_query);
 
   <?php
   if ($_SESSION['user']['admin'] == 1) {
-    $sql = $connection->query('SELECT * FROM csapat_parositas');
+    $sql = $connection->query('SELECT * FROM csapat_parositas WHERE idopont IS NULL');
 
     echo '<div class="kartya">
       <div class="card mb-4">

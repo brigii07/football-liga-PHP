@@ -16,21 +16,21 @@ if (isset($_POST['submit'])) {
 
     if ($hazai_cs != $vendeg_cs) {
         if (empty($hazai_cs) || empty($vendeg_cs) || empty($hazai_sz) || empty($dontetlen_sz) || empty($idegen_sz)) {
-            echo 'Minden adatot tölts ki!';
+            header('Location:../kozelgo_meccs.php?ures=true');
         } else {
 
             if (mysqli_stmt_prepare($statement, $query) == false) {
-                echo 'Az inicializálás nem működik.';
+                header('Location:../kozelgo_meccs.php?inic=true');
             } else {
                 mysqli_stmt_bind_param($statement, 'sssss', $hazai_sz, $dontetlen_sz, $idegen_sz, $hazai_cs, $vendeg_cs);
                 mysqli_stmt_execute($statement);
             }
-            header('Location: ../kozelgo_meccs.php');
+            header('Location: ../kozelgo_meccs.php?success=true');
         }
     } else {
-        echo 'Nem adhatod meg ugyanazt a csapatot kétszer';
+        header('Location:../kozelgo_meccs.php?ketszer=true');
     }
 } else {
-    echo 'A párosítás nem sikerült.';
+    header('Location:../kozelgo_meccs.php?nemsikerult=true');
 }
 ?>

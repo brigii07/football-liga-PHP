@@ -7,7 +7,31 @@
                     <div class="card-body p-md-5">
                         <div class="row justify-content-center" style="background-color: #BCC6CC;">
                             <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-
+                                <?php
+                                if (isset($_GET['errorrovid'])) {
+                                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>Hiba!</strong> A jelszavad túl rövid, 6-nál több karaktert kell tartalmaznia.
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>';
+                                } elseif (isset($_GET['nincsfelhasznalo'])) {
+                                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>Hiba!</strong> Nem találunk felhasználót ezzel az email címmel.
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>';
+                                } elseif (isset($_GET['Incorrect_password'])) {
+                                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>Hiba!</strong> Helytelen jelszó.
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>';
+                                }
+                                elseif(isset($_GET['success']))
+                                {
+                                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <strong>Siker!</strong> A regisztráció sikeres volt!
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>';
+                                }
+                                ?>
                                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Bejelentkezés</p>
 
                                 <form class="mx-1 mx-md-4" method="POST" action="controllers/login.php">

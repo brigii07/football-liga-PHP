@@ -2,26 +2,10 @@
 <?php require_once('controllers/database.php'); ?>
 <?php include_once('controllers/lejatszas.php'); ?>
 
-<?php 
 
-/* 
-if (isset($_POST['submit'])) {
-    $id = mysqli_real_escape_string($connection, $_POST['id']);
-    $query = "SELECT hazai_idegen_cs, id FROM meccs_lejatszas WHERE id = '$id'";
-    $result = mysqli_query($connection, $query);
-} */
-
-/* $csapatok = array();
-while ($row = mysqli_fetch_assoc($result)) {
-    $csapat = array('id' => $row['id'], 'name' => $row['hazai_idegen_cs']);
-    array_push($csapatok, $csapat);
-} */
-
-?>
-<!-- 
 <div class="row">
     <div class="col-12 text-center" id="focim">
-        <h1><?php echo $csapatok[0]['name'] . " vs " . $csapatok[1]['name'] ?></h1>
+        <h1><?php echo  $hazai_csapat . " vs " .  $idegen_csapat ?></h1>
     </div>
 </div>
 
@@ -37,14 +21,14 @@ while ($row = mysqli_fetch_assoc($result)) {
                     echo '<li class="list-group-item">' . $value . '</li>';
                 }
                 ?>
-                <li class="list-group-item">A meccs véget ért</li> -->
+                <li class="list-group-item">A meccs véget ért</li>
                 <?php
-/*                 echo '<li class="list-group-item"> A végeredmény: ' . $GLOBALS['team_1_score'] . ' - ' . $GLOBALS['team_2_score'] . '</li>';
- */                ?>
-<!--             </ul>
+                echo '<li class="list-group-item"> A végeredmény: <b>' . $hazai_score . ' - ' . $idegen_score . '</b></li>';
+            ?>
+            </ul>
 
         </div>
     </div>
     <div class="col-3"></div>
-</div> -->
+</div>
 <?php require_once('footer.php'); ?>

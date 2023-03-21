@@ -45,6 +45,8 @@ $result = mysqli_query($connection, $sql_query);
 <div class="vl">
 
   <?php
+
+  /* Bal oldali oszlop a meccs adataival */
   if ($_SESSION['user']['admin'] == 0) {
     $sql = $connection->query('SELECT * FROM csapat_parositas');
     echo '<div class="kartya">
@@ -56,29 +58,37 @@ $result = mysqli_query($connection, $sql_query);
 
     while ($row = $sql->fetch_array()) {
       echo '
-        <hr>
-                     
-          <div class="row">
+                                            <hr>
+                                                          
+                                              <div class="row">
+                                    
+                                                  <div class="col-sm-4">
+                                                     <p class="mb-0">' . $row['hazai_csapat'] . ' - ' . $row['idegen_csapat'] . ' </p>
+                                                  </div>
+                                                  <div class="col-sm-4">
+                                                  <form method="POST" action="fogadas_adatok.php">
+                                                      <input type="hidden" name="meccs" value = "' . $row['id'] . '">';
 
-              <div class="col-sm-4">
-                 <p class="mb-0">' . $row['hazai_idegen_cs'] . '</p>
-              </div>
-              <div class="col-sm-4">
-              <form method="POST" action="fogadas_adatok.php">
-              <input type="hidden" name="hazai_idegen_cs" value = "' . $row['hazai_idegen_cs'] . '">
+      if (isset($row['idopont'])) {
+        echo '<button disabled class="btn btn-dark" type="submit" id="submit" name="submit">Fogadj erre</button>';
+      } else {
+        echo '<button class="btn btn-dark" type="submit" id="submit" name="submit">Fogadj erre</button>';
+      }
+      echo '</form>
+                                                  </div>
+                                                  <div class="col-sm-4">
+                                                    <form method="POST" action="szimulalt_eredmenyek.php">
+                                                      <input type="hidden" name="meccs" value = "' . $row['id'] . '">';
+      if (isset($row['idopont'])) {
+        echo '<button class="btn btn-dark" type="submit" id="submit" name="submit">Nézd meg</button>';
+      } else {
+        echo '<button disabled class="btn btn-dark" type="submit" id="submit" name="submit">Nézd meg</button>';
+      }
 
-                 <button class="btn btn-dark" type="submit" id="' . $row['hazai_idegen_cs'] . '" name="' . $row['hazai_idegen_cs'] . '">Fogadj erre</button>
-              </form>
-              </div>
-              <div class="col-sm-4">
-              <form method="POST" action="meccs_menete.php">
-              <input type="hidden" name="hazai_idegen_cs" value = "' . $row['hazai_idegen_cs'] . '">
-
-                 <button class="btn btn-dark" type="submit" id="' . $row['hazai_idegen_cs'] . '" name="' . $row['hazai_idegen_cs'] . '">Nézd meg</button>
-              </form>
-              </div>
-          </div>
-        <hr>';
+      echo '</form>
+                                                  </div>
+                                              </div>
+                                            <hr>';
     }
     echo ' </div>
         </div>
@@ -86,12 +96,10 @@ $result = mysqli_query($connection, $sql_query);
   }
   ?>
 
-  <input type="hidden" name="">
-
   <?php
   if ($_SESSION['user']['admin'] == 0) {
-    $sql = $connection->query('SELECT * FROM csapat_parositas WHERE hazai_idegen_cs="' . $_POST["hazai_idegen_cs"] . '"');
-    
+    $sql = $connection->query('SELECT * FROM csapat_parositas WHERE id="' . $_POST["meccs"] . '"');
+
     echo '<div class="kartya2"> <form method="POST" action="controllers/fogadas_leadas.php">
                     <div class="card mb-4">
                        <div class="card-body text-center">
@@ -120,19 +128,19 @@ $result = mysqli_query($connection, $sql_query);
         <div class="col-sm-4">
         
         <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="hazai" name="hazai">
+            <input type="text" class="form-control" id="hazai" name="hazai" onchange="changeHandler(this)">
             <label for="hazai">Credit</label>
           </div>
         </div>
         <div class="col-sm-4">
         <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="dontetlen" name="dontetlen">
+            <input type="text" class="form-control" id="dontetlen" name="dontetlen" onchange="changeHandler(this)">
             <label for="dontetlen">Credit</label>
           </div>
         </div>
         <div class="col-sm-4">
         <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="idegen" name="idegen">
+            <input type="text" class="form-control" id="idegen" name="idegen" onchange="changeHandler(this)">
             <label for="idegen">Credit</label>
           </div>
         </div>
@@ -141,7 +149,7 @@ $result = mysqli_query($connection, $sql_query);
       echo '
         <div class="row">
         <div class="col-12 text-center">
-        <input type="hidden" name="hazai_idegen_cs" value = "' . $_POST['hazai_idegen_cs'] . '">
+        <input type="hidden" name="meccs" value = "' . $_POST['meccs'] . '">
         <button class="btn btn-dark" type="submit" id="submit" name="submit">Fogadás</button>
         </div>
         </form>
@@ -160,6 +168,40 @@ $result = mysqli_query($connection, $sql_query);
 
 <div class="vl">
 </div>
+
+
+<script>
+
+
+  /* Néhány keretrendszernél (pl. React) más formában írva a funkciókat lefut a betöltéskor, ebben a formában nem. */
+  let changeHandler = (input) => {
+    let hazai = document.getElementById('hazai');
+    let dontetlen = document.getElementById('dontetlen');
+    let idegen = document.getElementById('idegen');
+
+    if (input == hazai) {
+      dontetlen.setAttribute('disabled', true);
+      idegen.setAttribute('disabled', true);
+    }
+
+    if (input == dontetlen) {
+      hazai.setAttribute('disabled', true);
+      idegen.setAttribute('disabled', true);
+    }
+
+    if (input == idegen) {
+      dontetlen.setAttribute('disabled', true);
+      hazai.setAttribute('disabled', true);
+    }
+
+    if (input.value == null || input.value == "" || input.value == "0") {
+      hazai.removeAttribute('disabled');
+      dontetlen.removeAttribute('disabled');
+      idegen.removeAttribute('disabled');
+    }
+
+  }
+</script>
 
 
 

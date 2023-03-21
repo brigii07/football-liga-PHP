@@ -76,6 +76,39 @@
 
 <div class="vl">
   <br>
+  <?php
+    if (isset($_GET['success'])) {
+      echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>Siker!</strong> A meccsek párosítása sikeres volt
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      ';
+  } elseif (isset($_GET['ures'])) {
+      echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>Hiba!</strong> Minden adatot tölts ki.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>';
+  } elseif (isset($_GET['inic'])) {
+      echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>Hiba!</strong> Az inicializálás nem működik.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>';
+  }
+  elseif(isset($_GET['ketszer']))
+  {
+      echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>Hiba!</strong> Nem adhatod meg ugyanazt a csapatot kétszer.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>';
+  }
+  elseif(isset($_GET['nemsikerult']))
+  {
+      echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>Hiba!</strong> A párosítás nem sikerült.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>';
+  }
+    ?>
   <form method="POST" action="controllers/kozelgo.php">
 
     <label for="hazai_cs" class="label2">Add meg a hazai csapat nevét:</label>
