@@ -61,5 +61,5 @@ $result = mysqli_query($connection, $sql_hazai);
         </table>
     </div>
 </div>
-
+<!-- Kész -->
 <?php require_once('footer.php') ?>

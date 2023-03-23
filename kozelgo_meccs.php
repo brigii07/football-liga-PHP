@@ -179,5 +179,5 @@
 </div>
 
 <div class="vl"></div>
-
+<!-- Kész -->
 <?php require_once('footer.php') ?>

@@ -47,4 +47,5 @@ if (isset($_POST['submit'])) {
 } else {
     header('Location: ../register_form.php?error=true');
 }
+/* Kész */
 ?>

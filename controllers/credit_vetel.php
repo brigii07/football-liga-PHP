@@ -42,3 +42,4 @@ if (isset($_POST['submit'])) {
      header('Location: ../credit.php?error=true');
 }
 }
+/* Kész */

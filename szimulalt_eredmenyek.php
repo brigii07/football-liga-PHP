@@ -102,7 +102,5 @@ if (isset($_POST['submit'])) {
     </div>
     <div class="col-2"></div>
 </div>
-
-
-
+<!-- Kész -->
 <?php require_once 'footer.php'; ?>

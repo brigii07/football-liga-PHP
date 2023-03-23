@@ -38,10 +38,5 @@ $result = mysqli_query($connection, $query);
     <div class="col-3"></div>
 
 </div>
-
-
-
-
-
-
+<!-- Kész -->
 <?php require_once 'footer.php'; ?>

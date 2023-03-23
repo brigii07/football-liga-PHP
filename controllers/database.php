@@ -6,3 +6,4 @@ $databaseName = "football_projekt";
 
 $connection = mysqli_connect($serverAddress, $username, $password, $databaseName);
 ?>
+<!-- Kész -->

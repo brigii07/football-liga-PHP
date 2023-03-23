@@ -288,7 +288,7 @@ function KapuraLoves()
 
             $GLOBALS['idegen_score']++;
 
-            $string_to_return = $GLOBALS['playernel_a_labda']['jatekos_nev'] . " vezeti a labdát. Kikerüli a védőt! ÉÉÉÉS... GÓÓÓÓL. Az eredmény: " . $GLOBALS['hazai_score'] . " - " . $GLOBALS['idegen_score'] . " A " . $GLOBALS['csapatnal_a_labda'] . " csalódottan feláll a kezdéshez. ";
+            $string_to_return = $GLOBALS['playernel_a_labda']['jatekos_nev'] . " vezeti a labdát. Kikerüli a védőt! ÉÉÉÉS... GÓÓÓÓL. Az eredmény: " . $GLOBALS['hazai_score'] . " - " . $GLOBALS['idegen_score'] . " A " . $GLOBALS['csapatnal_a_labda'] . " boldogan feláll a kezdéshez. ";
 
             $player_in_event = rand(1, 10); /* Melyik játékoshoz kerül a labda */
             $GLOBALS['csapatnal_a_labda'] = $GLOBALS['hazai_csapat'];

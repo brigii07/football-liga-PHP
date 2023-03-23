@@ -281,4 +281,5 @@ $userData = mysqli_fetch_assoc(mysqli_query($connection, $userDataQuery));
     <div class="vl"></div>
 
 </section>
+<!-- Kész -->
 <?php require_once('footer.php') ?>

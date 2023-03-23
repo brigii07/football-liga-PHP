@@ -77,3 +77,5 @@ if (isset($_SESSION['user'])) {
 } else {
     header('Location: ../fogadas_adatok.php?mashiba=true');
 }
+
+/* Kész */

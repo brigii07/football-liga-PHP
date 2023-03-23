@@ -55,5 +55,5 @@ $result = mysqli_query($connection, $sql_query);
 
             </div>
         </div>
-
+<!-- Kész -->
         <?php require_once('footer.php') ?>

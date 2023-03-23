@@ -204,5 +204,5 @@ $result = mysqli_query($connection, $sql_query);
 </script>
 
 
-
+<!-- Kész -->
 <?php require_once('footer.php') ?>

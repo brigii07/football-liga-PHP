@@ -30,4 +30,5 @@ if (isset($_POST['submit'])) {
 } else {
     header('Location: ../user.php?errornem=true');
 }
+/* Kész */
 ?>

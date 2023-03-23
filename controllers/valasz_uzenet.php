@@ -32,4 +32,5 @@ if (isset($_POST['submit'])) {
 } else {
     header('Location: ../admin_valasz.php?error=true');
 }
+/* Kész */
 ?>

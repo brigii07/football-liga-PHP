@@ -84,4 +84,5 @@
     </div>
     </div>
 </section>
+<!-- Kész -->
 <?php require_once('footer.php') ?>

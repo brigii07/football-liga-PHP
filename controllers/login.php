@@ -33,4 +33,5 @@ if (isset($_POST['submit'])) {
     }
 
 }
+/* Kész */
 ?>

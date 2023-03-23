@@ -33,4 +33,5 @@ if (isset($_POST['submit'])) {
 } else {
     header('Location:../kozelgo_meccs.php?nemsikerult=true');
 }
+/* Kész */
 ?>

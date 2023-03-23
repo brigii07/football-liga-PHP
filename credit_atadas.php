@@ -54,4 +54,4 @@ $result = mysqli_query($connection, $sql_hazai);
 <div class="vl"></div>
 <?php require_once('footer.php') ?>
 
-<!-- ha azt megválaszolod el kell tárolni majd adatbázisban, ha ezt megtetted akkor kapsz 500 free creditet, de ilyet csak egyszer lehet. A kérdések a (creditvétel) adatbázisból fognak betölteni, lesz a kérdések tábla és lesz a válaszok tábla, emellé minden felhasználóhoz van creditvetel változó a regisztrációnál ami 0, ha megkapod a free creditet az 1-re ugrik és utána már nem fogsz tudni igényelni. -->
+<!-- Kész -->
