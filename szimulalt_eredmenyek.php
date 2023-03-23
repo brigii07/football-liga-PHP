@@ -22,12 +22,27 @@ if (isset($_POST['submit'])) {
 
     /* Meccs és a hozzá tartozó fogadás lekérése */
     $fogadasLekeresQuery = "SELECT * FROM fogadas WHERE meccsId = $meccs_id";
+    global $fogadasAdatok;
     $fogadasAdatok = mysqli_fetch_assoc(mysqli_query($connection, $fogadasLekeresQuery));
+    global $nyeremenyData;
+/*     $nyeremenyData = array("nyeremeny" => "Erre a meccsre nem fogadtál");
+ */
+    if (isset($fogadasAdatok['id'])) {
+       global $meccs_nyeremeny_query;
+       $meccs_nyeremeny_query = "SELECT * FROM nyeremeny WHERE felhasznaloId = ". $_SESSION['user']['id'] . " AND fogadasId = " . $fogadasAdatok['id'];     
+        $nyeremenyData = mysqli_fetch_assoc(mysqli_query($connection, $meccs_nyeremeny_query));
+    }
 
-
-    $meccs_nyeremeny_query = "SELECT * FROM nyeremeny WHERE felhasznaloId = ". $_SESSION['user']['id'] . " AND fogadasId = " . $fogadasAdatok['id']; 
+    if($nyeremenyData > 1)
+   {
+    global $kiir;
+    $kiir = "Az Ön nyereménye: " . $nyeremenyData['nyeremeny'] . " CR";
+   }
+   else
+   {
+    $kiir = "Ön nem fogadott erre a meccsre";
+   }
       
-    $nyeremenyData = mysqli_fetch_assoc(mysqli_query($connection, $meccs_nyeremeny_query));
 
 
 ?>
@@ -56,7 +71,7 @@ if (isset($_POST['submit'])) {
                 </tr>
                 <tr>
                     <td style='width: 33%'></td>
-                    <td class="text-danger" style='width: 33%'><?php echo "Az ön nyereménye: " . $nyeremenyData['nyeremeny']. " CR"; ?></td>
+                    <td class="text-danger" style='width: 33%'><?php echo $kiir ?></td>
                     <td style='width: 33%'></td>
                 </tr>
             </tbody>

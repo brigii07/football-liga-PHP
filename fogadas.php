@@ -22,6 +22,7 @@ $result = mysqli_query($connection, $sql_query);
   .vertical {
     border-left: 2px solid #212529;
     height: 682px;
+    width: 50%;
     position: relative;
     left: 50%;
   }
@@ -42,9 +43,13 @@ $result = mysqli_query($connection, $sql_query);
 
 <div class="vl">
 
-  <?php
+<?php
   if ($_SESSION['user']['admin'] == 0) {
     $sql = $connection->query('SELECT * FROM csapat_parositas');
+    $id = $_SESSION['user']['id'];
+
+    $fogadasquery = $connection->query("SELECT * FROM fogadas WHERE felhasznaloid = '$id'");
+
     echo '<div class="kartya">
                     <div class="card mb-4">
                        <div class="card-body text-center">
@@ -59,37 +64,35 @@ $result = mysqli_query($connection, $sql_query);
           <div class="row">
 
               <div class="col-sm-4">
-                 <p class="mb-0">' . $row['hazai_csapat'] . ' - '.$row['idegen_csapat'].' </p>
+                 <p class="mb-0">' . $row['hazai_csapat'] . ' - ' . $row['idegen_csapat'] . ' </p>
               </div>
               <div class="col-sm-4">
               <form method="POST" action="fogadas_adatok.php">
                   <input type="hidden" name="meccs" value = "' . $row['id'] . '">';
 
-                  if (isset($row['idopont'])) { /* Ha már lejátszott meccs nem fogadhat de megnézheti */
-                    echo '<button disabled class="btn btn-dark" type="submit" id="submit" name="submit">Fogadj erre</button>';
-                  }
-                  else{
-                    echo '<button class="btn btn-dark" type="submit" id="submit" name="submit">Fogadj erre</button>';
-                  }
-        echo '</form>
+      if (isset($row['idopont'])) { /* Ha már lejátszott meccs nem fogadhat de megnézheti */
+        echo '<button disabled class="btn btn-dark" type="submit" id="submit" name="submit">Fogadj erre</button>';
+      } else {
+        echo '<button class="btn btn-dark" type="submit" id="submit" name="submit">Fogadj erre</button>';
+      }
+      echo '</form>
               </div>
               <div class="col-sm-4">
                 <form method="POST" action="szimulalt_eredmenyek.php">
                   <input type="hidden" name="meccs" value = "' . $row['id'] . '">';
-                  if (isset($row['idopont'])) { /* Ha már lejátszott meccs megnézheti de nem fogadhat. */
-                    echo '<button class="btn btn-dark" type="submit" id="submit" name="submit">Nézd meg</button>';
-                  }
-                  else {
-                    echo '<button disabled class="btn btn-dark" type="submit" id="submit" name="submit">Nézd meg</button>';
-                  }
+      if (isset($row['idopont'])) { /* Ha már lejátszott meccs megnézheti de nem fogadhat. */
+        echo '<button class="btn btn-dark" type="submit" id="submit" name="submit">Nézd meg</button>';
+      } else {
+        echo '<button disabled class="btn btn-dark" type="submit" id="submit" name="submit">Nézd meg</button>';
+      }
 
-              echo '</form>
+      echo '</form>
               </div>
           </div>
         <hr>';
     }
 
-    
+
     echo ' </div>
         </div>
        </div>';
@@ -97,8 +100,8 @@ $result = mysqli_query($connection, $sql_query);
   ?>
 
 
-  <div class="vertical"></div>
-  
+<div class="vertical"></div>
+
 </div>
 
 

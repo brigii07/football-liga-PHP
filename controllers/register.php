@@ -41,9 +41,8 @@ if (isset($_POST['submit'])) {
         } else {
             mysqli_stmt_bind_param($statement, 'sssssss', $username, $hashed_password, $email, $eletkor, $credit, $credit_vetel, $admin);
             mysqli_stmt_execute($statement);
+            header('Location: ../login_form.php?success=true');
         }
-
-        header('Location: ../login_form.php?success=true');
     }
 } else {
     header('Location: ../register_form.php?error=true');

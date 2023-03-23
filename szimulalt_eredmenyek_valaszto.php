@@ -27,9 +27,9 @@ $result = mysqli_query($connection, $query);
                         ?>
 
                     </select>
-
                     <div class="text-center mt-3">
-                        <button class="btn btn-dark" name="submit" id="submit">Részletek</button>
+                       <button class="btn btn-dark" name="submit" id="submit">Részletek</button>
+                        
                     </div>
                 </form>
             </div>

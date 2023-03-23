@@ -116,7 +116,7 @@ $userData = mysqli_fetch_assoc(mysqli_query($connection, $userDataQuery));
                                         echo '<p class="text-muted mb-0">Nincs credit</p>';
                                     } else {
                                         if (isset($_SESSION['user'])) {
-                                            echo '<p class="text-muted mb-0">' . $userData["credit"] . 'CR </p>'; /* Itt le kell kérni az adatbázisból, vagy fogadás után nem frissül csak ha újra bejelentkezik az ember */
+                                            echo '<p class="text-muted mb-0">' . $userData["credit"] . ' CR </p>'; /* Itt le kell kérni az adatbázisból, vagy fogadás után nem frissül csak ha újra bejelentkezik az ember */
                                         }
                                     }
                                     ?>
