@@ -22,6 +22,7 @@ $result = mysqli_query($connection, $sql_query);
   .vertical {
     border-left: 2px solid #212529;
     height: 682px;
+    width: 50%;
     position: relative;
     left: 50%;
   }

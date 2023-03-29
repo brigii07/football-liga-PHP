@@ -13,7 +13,7 @@ session_start();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </head>
 
-<body style="background-color:#838996;">
+<body style="background-color:#838996;" oncontextmenu="return false;">
     <nav class="navbar navbar-expand-lg bg-dark">
         <div class="container-fluid bg-light">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,5 +86,4 @@ session_start();
         </div>
     </nav>
     
-</body>
 <!-- Kész -->

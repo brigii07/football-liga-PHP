@@ -236,7 +236,7 @@ function Passz()
         if ($GLOBALS['playernel_a_labda']['jatekos_nev'] == $GLOBALS['idegen_jatekosok'][$player_in_event]['jatekos_nev']) {
             $player_in_event = rand(1, 10);
             $GLOBALS['playernel_a_labda'] = $GLOBALS['idegen_jatekosok'][$player_in_event];
-        } else {
+        } else {    
             $GLOBALS['playernel_a_labda'] = $GLOBALS['idegen_jatekosok'][$player_in_event];
         }
     }
