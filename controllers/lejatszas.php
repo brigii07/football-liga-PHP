@@ -150,7 +150,6 @@ if (isset($_POST['submit'])) {
         mysqli_query($connection, $update_jatekos_query);
 
         $sql_nyeremeny = 'INSERT INTO nyeremeny (nyeremeny, felhasznaloId, fogadasId) VALUES ('. $nyeremeny_osszeg.','. $row["felhasznaloId"].','. $row["id"].')';
-        var_dump($sql_nyeremeny);
         mysqli_query($connection, $sql_nyeremeny);
     }
 }

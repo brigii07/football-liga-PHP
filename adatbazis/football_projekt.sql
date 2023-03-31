@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2023. Már 17. 19:00
--- Kiszolgáló verziója: 10.4.21-MariaDB
--- PHP verzió: 8.0.11
+-- Létrehozás ideje: 2023. Már 30. 09:15
+-- Kiszolgáló verziója: 10.4.27-MariaDB
+-- PHP verzió: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,16 +28,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admin_valasz` (
-  `valasz` varchar(255) COLLATE utf8_hungarian_ci DEFAULT NULL,
-  `cimzett` varchar(255) COLLATE utf8_hungarian_ci DEFAULT NULL
+  `valasz` varchar(255) DEFAULT NULL,
+  `cimzett` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
-
---
--- A tábla adatainak kiíratása `admin_valasz`
---
-
-INSERT INTO `admin_valasz` (`valasz`, `cimzett`) VALUES
-('igen', 'valami@valami.hu');
 
 -- --------------------------------------------------------
 
@@ -46,9 +39,9 @@ INSERT INTO `admin_valasz` (`valasz`, `cimzett`) VALUES
 --
 
 CREATE TABLE `csapatok` (
-  `kepnev` varchar(255) COLLATE utf8_hungarian_ci DEFAULT NULL,
-  `csapatnev` varchar(255) COLLATE utf8_hungarian_ci NOT NULL,
-  `csapatleiras` varchar(255) COLLATE utf8_hungarian_ci DEFAULT NULL
+  `kepnev` varchar(255) DEFAULT NULL,
+  `csapatnev` varchar(255) NOT NULL,
+  `csapatleiras` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
 --
@@ -76,23 +69,26 @@ INSERT INTO `csapatok` (`kepnev`, `csapatnev`, `csapatleiras`) VALUES
 --
 
 CREATE TABLE `csapat_parositas` (
-  `hazai_sz` varchar(4) COLLATE utf8_hungarian_ci DEFAULT NULL,
-  `dontetlen_sz` varchar(4) COLLATE utf8_hungarian_ci DEFAULT NULL,
-  `idegen_sz` varchar(4) COLLATE utf8_hungarian_ci DEFAULT NULL,
+  `hazai_sz` varchar(4) DEFAULT NULL,
+  `dontetlen_sz` varchar(4) DEFAULT NULL,
+  `idegen_sz` varchar(4) DEFAULT NULL,
   `id` int(11) NOT NULL,
   `eredmeny_hazai` int(11) DEFAULT NULL,
   `eredmeny_idegen` int(11) DEFAULT NULL,
   `idopont` date DEFAULT NULL,
-  `hazai_csapat` varchar(255) COLLATE utf8_hungarian_ci DEFAULT NULL,
-  `idegen_csapat` varchar(255) COLLATE utf8_hungarian_ci DEFAULT NULL
+  `hazai_csapat` varchar(255) DEFAULT NULL,
+  `idegen_csapat` varchar(255) DEFAULT NULL,
+  `fogadas_eredmeny` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
 --
 -- A tábla adatainak kiíratása `csapat_parositas`
 --
 
-INSERT INTO `csapat_parositas` (`hazai_sz`, `dontetlen_sz`, `idegen_sz`, `id`, `eredmeny_hazai`, `eredmeny_idegen`, `idopont`, `hazai_csapat`, `idegen_csapat`) VALUES
-('1', '2', '3', 4, NULL, NULL, NULL, 'Budapest Honvéd FC', 'Ferencváros');
+INSERT INTO `csapat_parositas` (`hazai_sz`, `dontetlen_sz`, `idegen_sz`, `id`, `eredmeny_hazai`, `eredmeny_idegen`, `idopont`, `hazai_csapat`, `idegen_csapat`, `fogadas_eredmeny`) VALUES
+('1.5', '6', '4', 29, 1, 1, '2023-03-30', 'Ferencváros', 'Budapest Honvéd FC', 2),
+('2', '3.5', '1.4', 30, NULL, NULL, NULL, 'Mezőkövesd Zsóry FC', 'Puskás Akadémia FC', NULL),
+('1.9', '4', '2.8', 31, NULL, NULL, NULL, 'Vasas SC', 'Zalaegerszegi TE FC', NULL);
 
 -- --------------------------------------------------------
 
@@ -101,10 +97,10 @@ INSERT INTO `csapat_parositas` (`hazai_sz`, `dontetlen_sz`, `idegen_sz`, `id`, `
 --
 
 CREATE TABLE `eredmenyek` (
-  `vegeredmeny` varchar(255) COLLATE utf8_hungarian_ci DEFAULT NULL,
+  `vegeredmeny` varchar(255) DEFAULT NULL,
   `idopont` date DEFAULT NULL,
-  `hazai` varchar(255) COLLATE utf8_hungarian_ci DEFAULT NULL,
-  `idegen` varchar(255) COLLATE utf8_hungarian_ci DEFAULT NULL
+  `hazai` varchar(255) DEFAULT NULL,
+  `idegen` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
 --
@@ -160,7 +156,8 @@ CREATE TABLE `fogadas` (
   `credit` int(11) DEFAULT NULL,
   `meccsId` int(11) DEFAULT NULL,
   `id` int(11) NOT NULL,
-  `matchId` int(11) DEFAULT NULL
+  `fogadas_tipusa` int(11) DEFAULT NULL,
+  `alapCredit` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
 -- --------------------------------------------------------
@@ -170,9 +167,9 @@ CREATE TABLE `fogadas` (
 --
 
 CREATE TABLE `jatekosok` (
-  `csapat` varchar(255) COLLATE utf8_hungarian_ci DEFAULT NULL,
-  `jatekos_nev` varchar(255) COLLATE utf8_hungarian_ci DEFAULT NULL,
-  `poszt` varchar(255) COLLATE utf8_hungarian_ci DEFAULT NULL,
+  `csapat` varchar(255) DEFAULT NULL,
+  `jatekos_nev` varchar(255) DEFAULT NULL,
+  `poszt` varchar(255) DEFAULT NULL,
   `sebesseg` double(8,2) DEFAULT round(rand() * 50.01 + 99.99,2),
   `pontossag` double(8,2) DEFAULT round(rand() * 50.01 + 99.99,2),
   `vedekezes` double(8,2) DEFAULT round(rand() * 50.01 + 99.99,2)
@@ -324,7 +321,7 @@ INSERT INTO `jatekosok` (`csapat`, `jatekos_nev`, `poszt`, `sebesseg`, `pontossa
 
 CREATE TABLE `kredit_vetel` (
   `id` int(11) NOT NULL,
-  `kerdes` varchar(255) COLLATE utf8_hungarian_ci DEFAULT NULL
+  `kerdes` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
 --
@@ -349,8 +346,37 @@ INSERT INTO `kredit_vetel` (`id`, `kerdes`) VALUES
 CREATE TABLE `meccs_lejatszas` (
   `id` int(11) NOT NULL,
   `meccsid` int(11) DEFAULT NULL,
-  `esemenyek` varchar(255) COLLATE utf8_hungarian_ci DEFAULT NULL
+  `esemenyek` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+--
+-- A tábla adatainak kiíratása `meccs_lejatszas`
+--
+
+INSERT INTO `meccs_lejatszas` (`id`, `meccsid`, `esemenyek`) VALUES
+(1461, 29, 'Ferencváros elkezdte a meccset. Muhamed Besic vezeti a labdát.'),
+(1462, 29, 'Passzol Samy Mmaee felé. Most nála a labda.'),
+(1463, 29, 'Samy Mmaee vezeti a labdát.'),
+(1464, 29, 'Samy Mmaee vezeti a labdát. Kikerüli a védőt! ÉÉÉÉS... MELLÉ. Dúzs Gellért kirúgáshoz készülődik. Brandon Domingués szerzi meg a labdát.'),
+(1465, 29, 'Xavier Mercier sikeresen megszerezte a labdát és gyors ellentámadást indít.'),
+(1466, 29, 'Passzol Kristofer Zachariassen felé. Most nála a labda.'),
+(1467, 29, 'Kristofer Zachariassen vezeti a labdát. Kikerüli a védőt! ÉÉÉÉS... MELLÉ. Dúzs Gellért kirúgáshoz készülődik. Jairo Samperio szerzi meg a labdát.'),
+(1468, 29, 'OUCH! Ez biztos fájt. A bíró a zsebe felé nyúl... ééés... végül eltekint a laptól. Szabadrúgást kap a Budapest Honvéd FC, melyet gyorsan el is végeztek.'),
+(1469, 29, 'OUCH! Ez biztos fájt. A bíró a zsebe felé nyúl... ééés... SÁRGA lap. Szabadrúgást kap a Budapest Honvéd FC, melyet gyorsan el is végeztek.'),
+(1470, 29, 'OUCH! Ez biztos fájt. A bíró a zsebe felé nyúl... ééés... végül eltekint a laptól. Szabadrúgást kap a Budapest Honvéd FC, melyet gyorsan el is végeztek.'),
+(1471, 29, 'Jairo Samperio vezeti a labdát.'),
+(1472, 29, 'Budapest Honvéd FC elkezdte a második félidőt. Lukas Klemenz vezeti a labdát.'),
+(1473, 29, 'OUCH! Ez biztos fájt. A bíró a zsebe felé nyúl... ééés... végül eltekint a laptól. Szabadrúgást kap a Budapest Honvéd FC, melyet gyorsan el is végeztek.'),
+(1474, 29, 'Lukas Klemenz vezeti a labdát.'),
+(1475, 29, 'Lukas Klemenz vezeti a labdát. Kikerüli a védőt! ÉÉÉÉS... GÓÓÓÓL. Az eredmény: 0 - 1 A Budapest Honvéd FC boldogan feláll a kezdéshez. Lisztes Krisztián vezeti a labdát.'),
+(1476, 29, 'Lisztes Krisztián vezeti a labdát. Kikerüli a védőt! ÉÉÉÉS... GÓÓÓÓL. Az eredmény: 1 - 1 A Ferencváros boldogan feláll a kezdéshez.Zsótér Donát vezeti a labdát.'),
+(1477, 29, 'Botka Endre sikeresen megszerezte a labdát és gyors ellentámadást indít.'),
+(1478, 29, 'OUCH! Ez biztos fájt. A bíró a zsebe felé nyúl... ééés... SÁRGA lap. Szabadrúgást kap a Ferencváros, melyet gyorsan el is végeztek.'),
+(1479, 29, 'OUCH! Ez biztos fájt. A bíró a zsebe felé nyúl... ééés... végül eltekint a laptól. Szabadrúgást kap a Ferencváros, melyet gyorsan el is végeztek.'),
+(1480, 29, 'OUCH! Ez biztos fájt. A bíró a zsebe felé nyúl... ééés... végül eltekint a laptól. Szabadrúgást kap a Ferencváros, melyet gyorsan el is végeztek.'),
+(1481, 29, 'Nenad Lukic sikeresen megszerezte a labdát és gyors ellentámadást indít.'),
+(1482, 29, 'Nenad Lukic vezeti a labdát. Kikerüli a védőt! ÉÉÉÉS... MELLÉ. Dibusz Dénes kirúgáshoz készülődik. Henry Wingo szerzi meg a labdát.'),
+(1483, 29, 'A bíró a szájához emeli a sípot, és a meccs véget ér. A végeredmény: 1 - 1');
 
 -- --------------------------------------------------------
 
@@ -359,10 +385,10 @@ CREATE TABLE `meccs_lejatszas` (
 --
 
 CREATE TABLE `nyeremeny` (
-  `nyeremeny` int(11) DEFAULT NULL,
-  `nyeremenyId` int(11) DEFAULT NULL,
+  `nyeremeny` int(11) UNSIGNED DEFAULT NULL,
   `id` int(11) NOT NULL,
-  `felhasznaloId` int(11) DEFAULT NULL
+  `felhasznaloId` int(11) DEFAULT NULL,
+  `fogadasId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
 -- --------------------------------------------------------
@@ -372,11 +398,11 @@ CREATE TABLE `nyeremeny` (
 --
 
 CREATE TABLE `registered` (
-  `username` varchar(255) COLLATE utf8_hungarian_ci DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8_hungarian_ci DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8_hungarian_ci DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
   `eletkor` int(11) DEFAULT NULL,
-  `credit` int(11) DEFAULT NULL,
+  `credit` int(11) UNSIGNED DEFAULT NULL,
   `credit_vetel` int(11) DEFAULT NULL,
   `id` int(11) NOT NULL,
   `admin` int(11) DEFAULT NULL
@@ -387,9 +413,8 @@ CREATE TABLE `registered` (
 --
 
 INSERT INTO `registered` (`username`, `password`, `email`, `eletkor`, `credit`, `credit_vetel`, `id`, `admin`) VALUES
-('valami', '$2y$10$I8Gb0fvgmtHwQ.2YvnS97.LR2eoB8ScqyPAsjJAQoE9/TTMzAR5Oe', 'valami@valami.hu', 19, 1500, 0, 2, 1),
-('valami2', '$2y$10$yP5/PyeguLo7Yu1ALvWONujKW7k3M.3LU30vaHbA1DMJdSKnrDOLm', 'valami2@valami2.hu', 19, 1490, 0, 3, 0),
-('richardwyeth', '$2y$10$uQ./iGJ8oYraRpBSM764c.kgzCfLvYIc8n7VOm4oKe/40JHa6lp3W', 'richardwyeth@gmail.com', 150, 1500, 0, 5, 1);
+('admin', '$2y$10$9D6PTzzoIe6PhuY8.9B5Mulep3EIPMMAV7OelkS0cSOBy./73feme', 'admin@admin.hu', 19, 1500, 0, 7, 1),
+('felhasznalo', '$2y$10$xv0YlnybcNkbuoIIL4xwHeFIGVGd2q3z9o4l4gCON9ZkYnFf1LWbm', 'felhasznalo@felhasznalo.hu', 19, 1500, 0, 8, 0);
 
 -- --------------------------------------------------------
 
@@ -399,9 +424,9 @@ INSERT INTO `registered` (`username`, `password`, `email`, `eletkor`, `credit`, 
 
 CREATE TABLE `uzenetek` (
   `id` int(11) NOT NULL,
-  `uzenet` varchar(255) COLLATE utf8_hungarian_ci DEFAULT NULL,
-  `felhasznaloi_nev` varchar(255) COLLATE utf8_hungarian_ci DEFAULT NULL,
-  `email_cim` varchar(255) COLLATE utf8_hungarian_ci DEFAULT NULL
+  `uzenet` varchar(255) DEFAULT NULL,
+  `felhasznaloi_nev` varchar(255) DEFAULT NULL,
+  `email_cim` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
 --
@@ -409,10 +434,8 @@ CREATE TABLE `uzenetek` (
 --
 
 INSERT INTO `uzenetek` (`id`, `uzenet`, `felhasznaloi_nev`, `email_cim`) VALUES
-(6, 'xd', 'valami2', 'valami2@valami2.hu'),
-(7, 'xddd', 'valami2', 'valami2@valami2.hu'),
-(8, 'minden is', 'valami2', 'valami2@valami2.hu'),
-(9, 'szopatsz', 'valami2', 'valami2@valami2.hu');
+(10, 'A credit vételnél vannak problémák, mert nem jelent meg rögtön a credit', 'felhasznalo', 'felhasznalo@felhasznalo.hu'),
+(11, 'nincs elég creditem', 'marci', 'marci@marci.hu');
 
 -- --------------------------------------------------------
 
@@ -421,18 +444,10 @@ INSERT INTO `uzenetek` (`id`, `uzenet`, `felhasznaloi_nev`, `email_cim`) VALUES
 --
 
 CREATE TABLE `valaszok` (
-  `valasz` varchar(255) COLLATE utf8_hungarian_ci DEFAULT NULL,
+  `valasz` varchar(255) DEFAULT NULL,
   `vasarolt_mar` mediumint(11) DEFAULT NULL,
   `felhasznaloiId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
-
---
--- A tábla adatainak kiíratása `valaszok`
---
-
-INSERT INTO `valaszok` (`valasz`, `vasarolt_mar`, `felhasznaloiId`) VALUES
-('2', 1, 3),
-('sok', 1, 3);
 
 --
 -- Indexek a kiírt táblákhoz
@@ -484,7 +499,8 @@ ALTER TABLE `meccs_lejatszas`
 --
 ALTER TABLE `nyeremeny`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `felhasznaloId` (`felhasznaloId`);
+  ADD KEY `felhasznaloId` (`felhasznaloId`),
+  ADD KEY `fogadasId` (`fogadasId`);
 
 --
 -- A tábla indexei `registered`
@@ -514,7 +530,13 @@ ALTER TABLE `valaszok`
 -- AUTO_INCREMENT a táblához `csapat_parositas`
 --
 ALTER TABLE `csapat_parositas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT a táblához `fogadas`
+--
+ALTER TABLE `fogadas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT a táblához `kredit_vetel`
@@ -523,16 +545,28 @@ ALTER TABLE `kredit_vetel`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT a táblához `meccs_lejatszas`
+--
+ALTER TABLE `meccs_lejatszas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1484;
+
+--
+-- AUTO_INCREMENT a táblához `nyeremeny`
+--
+ALTER TABLE `nyeremeny`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
 -- AUTO_INCREMENT a táblához `registered`
 --
 ALTER TABLE `registered`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT a táblához `uzenetek`
 --
 ALTER TABLE `uzenetek`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Megkötések a kiírt táblákhoz
@@ -568,7 +602,8 @@ ALTER TABLE `meccs_lejatszas`
 -- Megkötések a táblához `nyeremeny`
 --
 ALTER TABLE `nyeremeny`
-  ADD CONSTRAINT `nyeremeny_ibfk_1` FOREIGN KEY (`felhasznaloId`) REFERENCES `fogadas` (`felhasznaloId`);
+  ADD CONSTRAINT `nyeremeny_ibfk_2` FOREIGN KEY (`felhasznaloId`) REFERENCES `registered` (`id`),
+  ADD CONSTRAINT `nyeremeny_ibfk_3` FOREIGN KEY (`fogadasId`) REFERENCES `fogadas` (`id`);
 
 --
 -- Megkötések a táblához `valaszok`
